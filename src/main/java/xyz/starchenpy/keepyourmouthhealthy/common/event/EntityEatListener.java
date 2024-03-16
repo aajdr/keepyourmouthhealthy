@@ -35,7 +35,6 @@ public class EntityEatListener {
                 int useDuration = event.getDuration();
                 int extraDuration = effect.getAmplifier() * 16 + 16;
                 // 增加吃饭的时间
-                event.getItem().keepyourmouthhealthy$setDuration(extraDuration);
                 event.setDuration(useDuration + extraDuration);
             }
         }
