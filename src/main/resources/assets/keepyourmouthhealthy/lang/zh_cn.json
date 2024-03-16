@@ -1,0 +1,14 @@
+{
+  "itemGroup.keepyourmouthhealthy.tab": "保持口腔健康",
+
+  "tooltip.keepyourmouthhealthy.redstone_toothbrush": "§7这! 就! 是! 红石科技！",
+
+  "item.keepyourmouthhealthy.toothbrush": "牙刷",
+  "item.keepyourmouthhealthy.redstone_toothbrush": "红石动力牙刷",
+  "item.keepyourmouthhealthy.toothpaste": "牙膏",
+  "item.keepyourmouthhealthy.powerful_abrasive_paste": "强效研磨膏",
+
+  "effect.keepyourmouthhealthy.tooth_decay": "蛀牙",
+  "effect.keepyourmouthhealthy.oral_injury": "口腔受损",
+  "effect.keepyourmouthhealthy.healthy_oral": "健康口腔"
+}
