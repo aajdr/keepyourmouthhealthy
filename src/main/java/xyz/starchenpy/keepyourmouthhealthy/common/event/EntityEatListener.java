@@ -8,7 +8,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import xyz.starchenpy.keepyourmouthhealthy.common.Config;
 import xyz.starchenpy.keepyourmouthhealthy.common.effect.ModEffects;
-import xyz.starchenpy.keepyourmouthhealthy.mixin.ItemStackMixin;
 
 public class EntityEatListener {
     @SubscribeEvent
