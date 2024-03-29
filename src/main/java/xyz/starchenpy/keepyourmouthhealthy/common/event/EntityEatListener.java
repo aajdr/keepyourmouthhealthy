@@ -46,10 +46,10 @@ public class EntityEatListener {
     private static void givePlayerEffect(Player player) {
         MobEffectInstance buffToothDecay = player.getEffect(ModEffects.TOOTH_DECAY.get());
         MobEffectInstance buffOralInjury = player.getEffect(ModEffects.ORAL_INJURY.get());
-        MobEffectInstance bufferHealthyOral = player.getEffect(ModEffects.HEALTHY_ORAL.get());
+        MobEffectInstance buffHealthyOral = player.getEffect(ModEffects.HEALTHY_ORAL.get());
 
         //如果有口腔健康 buff 就不给新 buff
-        if (bufferHealthyOral != null) {
+        if (buffHealthyOral != null) {
             return;
         }
 
@@ -63,12 +63,12 @@ public class EntityEatListener {
         if (buffToothDecay.getAmplifier() < Config.toothDecayMaxLevel) {
             buffToothDecay.update(new MobEffectInstance(ModEffects.TOOTH_DECAY.get(), -1, buffToothDecay.getAmplifier() + 1));
         } else if (buffOralInjury != null) {
-            //等级限制
-            if (buffToothDecay.getAmplifier() < Config.oralInjuryMaxLevel) {
-                buffToothDecay.update(new MobEffectInstance(ModEffects.TOOTH_DECAY.get(), -1, buffOralInjury.getAmplifier() + 1));
+            if (buffOralInjury.getAmplifier() < Config.oralInjuryMaxLevel) {
+                int duration = 2400 * (buffOralInjury.getAmplifier() + 2);
+                buffOralInjury.update(new MobEffectInstance(ModEffects.ORAL_INJURY.get(), duration, buffOralInjury.getAmplifier() + 1));
             }
         } else {
-            player.addEffect(new MobEffectInstance(ModEffects.TOOTH_DECAY.get(), -1));
+            player.addEffect(new MobEffectInstance(ModEffects.ORAL_INJURY.get(), 2400));
         }
     }
 
