@@ -5,8 +5,8 @@
 
   "item.keepyourmouthhealthy.toothbrush": "牙刷",
   "item.keepyourmouthhealthy.redstone_toothbrush": "红石动力牙刷",
-  "item.keepyourmouthhealthy.toothpaste": "牙膏",
-  "item.keepyourmouthhealthy.powerful_abrasive_paste": "强效研磨膏",
+  "item.keepyourmouthhealthy.charcoal_toothpaste": "木炭牙膏",
+  "item.keepyourmouthhealthy.flint_toothpaste": "燧石牙膏",
 
   "effect.keepyourmouthhealthy.tooth_decay": "蛀牙",
   "effect.keepyourmouthhealthy.oral_injury": "口腔受损",

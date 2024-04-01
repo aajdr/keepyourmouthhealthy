@@ -5,8 +5,8 @@
 
   "item.keepyourmouthhealthy.toothbrush": "Toothbrush",
   "item.keepyourmouthhealthy.redstone_toothbrush": "Redstone Toothbrush",
-  "item.keepyourmouthhealthy.toothpaste": "Toothpaste",
-  "item.keepyourmouthhealthy.powerful_abrasive_paste": "Powerful Abrasive Paste",
+  "item.keepyourmouthhealthy.charcoal_toothpaste": "Charcoal Toothpaste",
+  "item.keepyourmouthhealthy.flint_toothpaste": "Flint Toothpaste",
 
   "effect.keepyourmouthhealthy.tooth_decay": "Tooth Decay",
   "effect.keepyourmouthhealthy.oral_injury": "Oral Injury",
