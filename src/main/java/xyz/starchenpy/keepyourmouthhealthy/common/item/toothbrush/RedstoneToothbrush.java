@@ -12,8 +12,6 @@ import java.util.List;
 import static xyz.starchenpy.keepyourmouthhealthy.KeepYourMouthHealthy.MOD_ID;
 
 public class RedstoneToothbrush extends AbstractToothbrush {
-    protected static final String NBT2 = "powerful";
-
     public RedstoneToothbrush(Properties item) {
         super(item);
     }
