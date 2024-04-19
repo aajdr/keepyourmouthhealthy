@@ -1,7 +1,7 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "keepyourmouthhealthy:item/redstone_toothbrush"
+    "layer0": "keepyourmouthhealthy:item/wooden_toothbrush"
   },
   "display": {
     "firstperson_righthand": {

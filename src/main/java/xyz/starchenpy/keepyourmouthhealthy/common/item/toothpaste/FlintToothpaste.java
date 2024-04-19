@@ -6,15 +6,14 @@ import xyz.starchenpy.keepyourmouthhealthy.common.effect.ModEffects;
 
 public class FlintToothpaste extends AbstractToothpaste {
     public FlintToothpaste(Properties item) {
-        super(item);
+        super(item, 4);
     }
 
     @Override
     public void effect(LivingEntity entity) {
-        cleanTooth(entity, 4);
-
-        entity.hurt(entity.damageSources().magic(), 2);
-        // 加口腔清洁buff
+        cleanTooth(entity);
+        // 加口腔损伤buff
         entity.addEffect(new MobEffectInstance(ModEffects.ORAL_INJURY.get(), 2400));
+        entity.hurt(entity.damageSources().magic(), 2);
     }
 }

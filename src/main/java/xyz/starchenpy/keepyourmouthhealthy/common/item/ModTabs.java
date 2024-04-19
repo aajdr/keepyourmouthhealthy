@@ -15,7 +15,7 @@ public class ModTabs {
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MOD_TAB = CREATIVE_MODE_TABS.register("tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup." + MOD_ID + ".tab"))
-            .icon(() -> ModItems.CHARCOAL_TOOTHPASTE.get().getDefaultInstance())
+            .icon(() -> ModItems.WOODEN_TOOTHBRUSH.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
                 for (DeferredHolder<Item, ? extends Item> holder : ModItems.getAllModItem()) {
                     output.accept(holder.get());

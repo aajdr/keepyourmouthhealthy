@@ -16,15 +16,10 @@ public class RedstoneToothbrush extends AbstractToothbrush {
         super(item);
     }
 
-    /**
-     * 决定了刷牙所需的时间
-     * @param itemStack 物品
-     * @return 时间(tick)
-     */
     @Override
     @ParametersAreNonnullByDefault
     public int getUseDuration(ItemStack itemStack) {
-        return 60;
+        return 100;
     }
 
     @Override

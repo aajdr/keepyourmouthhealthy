@@ -6,13 +6,12 @@ import xyz.starchenpy.keepyourmouthhealthy.common.effect.ModEffects;
 
 public class CharcoalToothpaste extends AbstractToothpaste {
     public CharcoalToothpaste(Properties item) {
-        super(item);
+        super(item, 2);
     }
 
     @Override
     public void effect(LivingEntity entity) {
-        cleanTooth(entity, 2);
-
+        cleanTooth(entity);
         // 加口腔清洁buff
         entity.addEffect(new MobEffectInstance(ModEffects.HEALTHY_ORAL.get(), 9600));
     }
