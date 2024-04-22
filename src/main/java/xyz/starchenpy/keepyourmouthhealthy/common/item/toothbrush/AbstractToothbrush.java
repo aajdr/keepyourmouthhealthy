@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -23,9 +24,15 @@ import java.util.function.Consumer;
 
 public class AbstractToothbrush extends Item {
     protected static final String NBT_NAME = "toothpaste";
+    protected int useDuration;
 
     public AbstractToothbrush(Properties item) {
+        this(item, 160);
+    }
+
+    public AbstractToothbrush(Properties item, int useDuration) {
         super(item);
+        this.useDuration = useDuration;
     }
 
     /**
@@ -48,7 +55,11 @@ public class AbstractToothbrush extends Item {
     @Override
     @ParametersAreNonnullByDefault
     public int getUseDuration(ItemStack itemStack) {
-        return 160;
+        if (getToothpaste(itemStack) != null) {
+            return useDuration;
+        }
+
+        return 40;
     }
 
     /**
@@ -70,26 +81,17 @@ public class AbstractToothbrush extends Item {
     @Override
     @ParametersAreNonnullByDefault
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        ItemStack itemStack = player.getItemInHand(hand);
-
-        String toothpasteName = itemStack.getOrCreateTag().getString(NBT_NAME);
-        Item item = BuiltInRegistries.ITEM.get(new ResourceLocation(toothpasteName));
-        if (item instanceof AbstractToothpaste) {
-            player.startUsingItem(hand);
-            return InteractionResultHolder.pass(itemStack);
-        }
-
-        InteractionHand otherHand = hand == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
+        InteractionHand offHand = hand == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
         ItemStack toothbrush = player.getItemInHand(hand);
-        ItemStack toothpaste = player.getItemInHand(otherHand);
+        ItemStack toothpaste = player.getItemInHand(offHand);
 
-        if (toothpaste.getItem() instanceof AbstractToothpaste) {
-            toothpaste.setDamageValue(toothpaste.getDamageValue() + 1);
-            toothbrush.getOrCreateTag().putString(NBT_NAME, BuiltInRegistries.ITEM.getKey(toothpaste.getItem()).toString());
-            return InteractionResultHolder.success(itemStack);
+        // 刷牙或者抹牙膏
+        if (toothpaste.getItem() instanceof AbstractToothpaste || getToothpaste(toothbrush) instanceof AbstractToothpaste) {
+            player.startUsingItem(hand);
+            return InteractionResultHolder.pass(toothbrush);
         }
 
-        return InteractionResultHolder.fail(itemStack);
+        return InteractionResultHolder.fail(toothbrush);
     }
 
     /**
@@ -104,39 +106,76 @@ public class AbstractToothbrush extends Item {
     @ParametersAreNonnullByDefault
     public ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity entity) {
         if (entity instanceof Player player) {
-            if (itemStack.getTag() == null) {
-                return itemStack;
-            }
+            ItemStack toothpaste = player.getMainHandItem() == itemStack ? player.getOffhandItem() : player.getMainHandItem();
 
-            String toothpasteName = itemStack.getTag().getString(NBT_NAME);
-            if (toothpasteName.isEmpty()) {
-                return itemStack;
-            }
-
-            // 根据 NBT 中的名字获取 Item
-            Item item = BuiltInRegistries.ITEM.get(new ResourceLocation(toothpasteName));
-            if (item instanceof AbstractToothpaste toothpaste) {
-                toothpaste.effect(player);
-                itemStack.getTag().putString(NBT_NAME, "");
+            if (getToothpaste(itemStack) instanceof AbstractToothpaste item) {
+                item.effect(player);
+                setToothpaste(itemStack, null);
                 player.getCooldowns().addCooldown(this, getCooldown());
+            } else if (toothpaste.getItem() instanceof AbstractToothpaste item) {
+                toothpaste.hurtAndBreak(1, player, (e) -> {});
+                setToothpaste(itemStack, item);
             }
         }
         return itemStack;
+    }
+
+    /**
+     * 从 NBT 获取牙膏
+     * @param itemStack 物品
+     * @return 牙膏
+     */
+    public static Item getToothpaste(ItemStack itemStack) {
+        if (!itemStack.getOrCreateTag().contains(NBT_NAME)) {
+            return null;
+        }
+
+        String toothpasteName = itemStack.getOrCreateTag().getString(NBT_NAME);
+        if (toothpasteName.isEmpty()) {
+            return null;
+        }
+
+        return BuiltInRegistries.ITEM.get(new ResourceLocation(toothpasteName));
+    }
+
+    /**
+     * 将牙膏添加到 NBT 中
+     * @param itemStack 牙刷
+     * @param toothpaste 牙膏
+     */
+    public static void setToothpaste(ItemStack itemStack, Item toothpaste) {
+        CompoundTag tag = itemStack.getOrCreateTag();
+        if (toothpaste == null) {
+            tag.putString(NBT_NAME, "");
+        } else {
+            tag.putString(NBT_NAME, BuiltInRegistries.ITEM.getKey(toothpaste).toString());
+        }
     }
 
     @Override
     @ParametersAreNonnullByDefault
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
+            /**
+             * 自定义使用动画
+             * @param poseStack    姿势
+             * @param player       玩家
+             * @param arm          拿东西的手
+             * @param itemInHand   具体的物品
+             * @param partialTick  一部分tick 用来插值使动画平滑
+             * @param equipProcess 十字指针下面的剑型槽 用来画拿出来的动画
+             * @param swingProcess 摆动时间
+             * @return 是否直接渲染
+             */
             @Override
             public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
                 this.applyItemArmTransform(poseStack, arm, equipProcess);
 
                 if (player.isUsingItem() && player.getUseItemRemainingTicks() > 0) {
-                    if (itemInHand.getOrCreateTag().contains(NBT_NAME)) {
+                    if (getToothpaste(itemInHand) instanceof AbstractToothpaste) {
                         this.brushingArmTransform(poseStack, arm, player.getUseItemRemainingTicks(), itemInHand.getUseDuration(), partialTick);
                     } else {
-                        this.applyToothpasteArmTransform(poseStack, arm);
+                        this.applyToothpasteArmTransform(poseStack, arm, player.getUseItemRemainingTicks(), itemInHand.getUseDuration(), partialTick);
                     }
                 }
 
@@ -154,12 +193,26 @@ public class AbstractToothbrush extends Item {
                 poseStack.translate((float)i * 0.56F, -0.52F + equipProcess * -0.6F, -0.72F);
             }
 
-            private void applyToothpasteArmTransform(PoseStack poseStack, HumanoidArm hand) {
+            /**
+             * 挤牙膏的动作
+             * @param poseStack 物品
+             * @param arm 手
+             */
+            private void applyToothpasteArmTransform(PoseStack poseStack, HumanoidArm arm, int remainingDuration, int useDuration, float partialTick) {
+                int i = arm == HumanoidArm.RIGHT ? 1 : -1;
+                // 使用进度
+                float progress = ((1 - ((float) remainingDuration / useDuration)) * 100) + partialTick;
 
+                float angle = progress <= 20 ? i * progress * 1.5f : i * 30;
+                float distanceX = progress <= 20 ? i * progress * -0.02f : i * -0.4f;
+
+                poseStack.translate(distanceX, 0, 0);
+                poseStack.mulPose(Axis.YP.rotationDegrees(angle));
+                poseStack.mulPose(Axis.ZP.rotationDegrees(angle));
             }
 
             /**
-             * 应用刷牙动作
+             * 刷牙动作
              * @param poseStack 物品
              * @param arm 手
              * @param remainingDuration 玩家剩余的使用时间
@@ -171,9 +224,9 @@ public class AbstractToothbrush extends Item {
                 float progress = ((1 - ((float) remainingDuration / useDuration)) * 100) + partialTick;
                 // 摆动幅度
                 double amplitude = Math.sin(progress) / 8 * i;
-
                 float angleZ = progress <= 10 ? i * progress * 9 : i * 90;
-                float angleX = progress <= 10 ? progress * 8 : 80;
+                float angleX = progress <= 10 ? progress * 7.5f : 75;
+
                 poseStack.mulPose(Axis.ZP.rotationDegrees(angleZ));
                 poseStack.mulPose(Axis.XP.rotationDegrees(angleX));
 

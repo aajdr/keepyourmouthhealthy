@@ -8,6 +8,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import xyz.starchenpy.keepyourmouthhealthy.common.Config;
 import xyz.starchenpy.keepyourmouthhealthy.common.effect.ModEffects;
 import xyz.starchenpy.keepyourmouthhealthy.common.event.EntityEatListener;
+import xyz.starchenpy.keepyourmouthhealthy.common.event.ItemRenderListener;
 import xyz.starchenpy.keepyourmouthhealthy.common.item.ModItems;
 import xyz.starchenpy.keepyourmouthhealthy.common.item.ModTabs;
 
@@ -21,6 +22,7 @@ public class KeepYourMouthHealthy {
         ModEffects.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(EntityEatListener.class);
+        NeoForge.EVENT_BUS.register(ItemRenderListener.class);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }

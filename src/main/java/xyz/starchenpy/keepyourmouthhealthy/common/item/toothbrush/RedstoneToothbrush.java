@@ -13,13 +13,7 @@ import static xyz.starchenpy.keepyourmouthhealthy.KeepYourMouthHealthy.MOD_ID;
 
 public class RedstoneToothbrush extends AbstractToothbrush {
     public RedstoneToothbrush(Properties item) {
-        super(item);
-    }
-
-    @Override
-    @ParametersAreNonnullByDefault
-    public int getUseDuration(ItemStack itemStack) {
-        return 100;
+        super(item, 100);
     }
 
     @Override
