@@ -1,16 +1,6 @@
 {
-  "parent": "item/generated",
+  "parent": "keepyourmouthhealthy:item/toothbrush",
   "textures": {
     "layer0": "keepyourmouthhealthy:item/wooden_toothbrush"
-  },
-  "display": {
-    "firstperson_righthand": {
-      "rotation": [ 0, 90, -30 ],
-      "translation": [ 5, 1, -2 ]
-    },
-    "firstperson_lefthand": {
-      "rotation": [ 0, -90, 30 ],
-      "translation": [ 5, 1, -2 ]
-    }
   }
 }

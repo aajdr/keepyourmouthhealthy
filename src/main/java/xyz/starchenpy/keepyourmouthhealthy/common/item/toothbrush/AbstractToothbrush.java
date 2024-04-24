@@ -3,6 +3,8 @@ package xyz.starchenpy.keepyourmouthhealthy.common.item.toothbrush;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -15,6 +17,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import xyz.starchenpy.keepyourmouthhealthy.common.item.toothpaste.AbstractToothpaste;
 
@@ -120,6 +123,38 @@ public class AbstractToothbrush extends Item {
         return itemStack;
     }
 
+    @Override
+    @ParametersAreNonnullByDefault
+    public void onUseTick(Level pLevel, LivingEntity pLivingEntity, ItemStack pStack, int pRemainingUseDuration) {
+        if (!pLevel.isClientSide) {
+            return;
+        }
+
+        float progress = ((1 - ((float) pRemainingUseDuration / this.getUseDuration(pStack))) * 100);
+
+        if (progress < 10) {
+            return;
+        }
+
+        if (getToothpaste(pStack) instanceof AbstractToothpaste) {
+            spawnToothpasteParticles(pLevel, pLivingEntity, pStack);
+        }
+    }
+
+    private void spawnToothpasteParticles(Level level, LivingEntity entity, ItemStack stack) {
+        Vec3 speedVec3 = new Vec3(((double)level.random.nextFloat() - 0.5) * 0.1, Math.random() * 0.1 + 0.1, 0.0);
+        speedVec3 = speedVec3.xRot(-entity.getXRot() * (float) (Math.PI / 180.0));
+        speedVec3 = speedVec3.yRot(-entity.getYRot() * (float) (Math.PI / 180.0));
+
+        double d0 = (double)(-level.random.nextFloat()) * 0.6 - 0.3;
+        Vec3 posVec3 = new Vec3(((double)level.random.nextFloat() - 0.5) * 0.3, d0, 0.6);
+        posVec3 = posVec3.xRot(-entity.getXRot() * (float) (Math.PI / 180.0));
+        posVec3 = posVec3.yRot(-entity.getYRot() * (float) (Math.PI / 180.0));
+        posVec3 = posVec3.add(entity.getX(), entity.getEyeY(), entity.getZ());
+
+        level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, stack), posVec3.x, posVec3.y, posVec3.z, speedVec3.x, speedVec3.y + 0.05, speedVec3.z);
+    }
+
     /**
      * 从 NBT 获取牙膏
      * @param itemStack 物品
@@ -171,10 +206,12 @@ public class AbstractToothbrush extends Item {
             public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
                 this.applyItemArmTransform(poseStack, arm, equipProcess);
 
+                ItemStack toothpaste = player.getMainHandItem() == itemInHand ? player.getOffhandItem() : player.getMainHandItem();
+
                 if (player.isUsingItem() && player.getUseItemRemainingTicks() > 0) {
                     if (getToothpaste(itemInHand) instanceof AbstractToothpaste) {
                         this.brushingArmTransform(poseStack, arm, player.getUseItemRemainingTicks(), itemInHand.getUseDuration(), partialTick);
-                    } else {
+                    } else if (toothpaste.getItem() instanceof AbstractToothpaste) {
                         this.applyToothpasteArmTransform(poseStack, arm, player.getUseItemRemainingTicks(), itemInHand.getUseDuration(), partialTick);
                     }
                 }
@@ -204,7 +241,7 @@ public class AbstractToothbrush extends Item {
                 float progress = ((1 - ((float) remainingDuration / useDuration)) * 100) + partialTick;
 
                 float angle = progress <= 20 ? i * progress * 1.5f : i * 30;
-                float distanceX = progress <= 20 ? i * progress * -0.02f : i * -0.4f;
+                float distanceX = progress <= 20 ? i * progress * -0.015f : i * -0.3f;
 
                 poseStack.translate(distanceX, 0, 0);
                 poseStack.mulPose(Axis.YP.rotationDegrees(angle));
