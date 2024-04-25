@@ -9,6 +9,8 @@ import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import xyz.starchenpy.keepyourmouthhealthy.common.Config;
 import xyz.starchenpy.keepyourmouthhealthy.common.effect.ModEffects;
 
+import java.util.Random;
+
 public class EntityEatListener {
     @SubscribeEvent
     public static void entityEatListener(LivingEntityUseItemEvent.Finish event) {
@@ -33,7 +35,7 @@ public class EntityEatListener {
             if (effect != null) {
                 int useDuration = event.getDuration();
                 int extraDuration = effect.getAmplifier() * 16 + 16;
-                // 增加吃饭的时间
+                // 增加吃东西的时间
                 event.setDuration(useDuration + extraDuration);
             }
         }
@@ -50,6 +52,10 @@ public class EntityEatListener {
 
         //如果有口腔健康 buff 就不给新 buff
         if (effectHealthyOral != null) {
+            return;
+        }
+
+        if (new Random().nextInt() >= Config.chanceOfToothDecay) {
             return;
         }
 
