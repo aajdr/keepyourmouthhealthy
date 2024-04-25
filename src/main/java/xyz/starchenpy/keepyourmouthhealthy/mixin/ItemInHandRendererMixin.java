@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import xyz.starchenpy.keepyourmouthhealthy.common.Config;
 import xyz.starchenpy.keepyourmouthhealthy.common.effect.ModEffects;
 
 @Mixin(ItemInHandRenderer.class)
@@ -27,7 +28,7 @@ public abstract class ItemInHandRendererMixin {
         }
 
         if (effect != null) {
-            int extraDuration = effect.getAmplifier() * 16 + 16;
+            int extraDuration = (effect.getAmplifier() + 1) * Config.extraEatTime;
             return duration + extraDuration;
         }
 

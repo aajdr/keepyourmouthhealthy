@@ -13,7 +13,7 @@ import java.util.Random;
 
 public class EntityEatListener {
     @SubscribeEvent
-    public static void entityEatListener(LivingEntityUseItemEvent.Finish event) {
+    public static void entityEatFinishListener(LivingEntityUseItemEvent.Finish event) {
         if (!event.getItem().isEdible()) {
             return;
         }
@@ -25,7 +25,7 @@ public class EntityEatListener {
     }
 
     @SubscribeEvent
-    public static void entityEatListener(LivingEntityUseItemEvent.Start event) {
+    public static void entityEatStartListener(LivingEntityUseItemEvent.Start event) {
         if (!event.getItem().isEdible()) {
             return;
         }
@@ -34,7 +34,7 @@ public class EntityEatListener {
             MobEffectInstance effect = player.getEffect(ModEffects.TOOTH_DECAY.get());
             if (effect != null) {
                 int useDuration = event.getDuration();
-                int extraDuration = effect.getAmplifier() * 16 + 16;
+                int extraDuration = (effect.getAmplifier() + 1) * Config.extraEatTime;
                 // 增加吃东西的时间
                 event.setDuration(useDuration + extraDuration);
             }
@@ -70,7 +70,7 @@ public class EntityEatListener {
             effectToothDecay.update(new MobEffectInstance(ModEffects.TOOTH_DECAY.get(), -1, effectToothDecay.getAmplifier() + 1));
         } else if (effectOralInjury != null) {
             if (effectOralInjury.getAmplifier() < Config.oralInjuryMaxLevel) {
-                int duration = 2400 * (effectOralInjury.getAmplifier() + 2);
+                int duration = 2400 * (effectOralInjury.getAmplifier() + 1);
                 effectOralInjury.update(new MobEffectInstance(ModEffects.ORAL_INJURY.get(), duration, effectOralInjury.getAmplifier() + 1));
             }
         } else {
@@ -83,15 +83,15 @@ public class EntityEatListener {
         MobEffectInstance effectHealthyOral = player.getEffect(ModEffects.HEALTHY_ORAL.get());
 
         if (effectOralInjury != null) {
-            int level = effectOralInjury.getAmplifier();
-            player.hurt(player.damageSources().magic(), 2 + level * 2);
+            int damage = (effectOralInjury.getAmplifier() + 1) * Config.eatingDamage;
+            player.hurt(player.damageSources().magic(), damage);
         }
 
         if (effectHealthyOral != null) {
             FoodProperties foodProperties = item.getFoodProperties(player);
             if (foodProperties != null) {
-                int nutrition = (int) (foodProperties.getNutrition() * 0.2);
-                float saturation = (float) (foodProperties.getSaturationModifier() * 0.2);
+                int nutrition = (int) (foodProperties.getNutrition() * Config.extraNutrition);
+                float saturation = foodProperties.getSaturationModifier() * Config.extraSaturation;
                 player.getFoodData().eat(nutrition, saturation);
             }
         }
