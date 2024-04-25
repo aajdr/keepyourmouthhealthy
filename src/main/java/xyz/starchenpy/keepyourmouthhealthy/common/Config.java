@@ -12,7 +12,7 @@ public class Config {
 
     private static final ModConfigSpec.IntValue CHANCE_OF_TOOTH_DECAY = BUILDER
             .comment("This value determines the chance of tooth decay while eating")
-            .defineInRange("chanceOfToothDecay", 10, 0, 100);
+            .defineInRange("chanceOfToothDecay", 5, 0, 100);
 
     private static final ModConfigSpec.IntValue TOOTH_DECAY_MAX_LEVEL = BUILDER
             .comment("This value determines the maximum level of tooth decay buff that can be obtained normally")
