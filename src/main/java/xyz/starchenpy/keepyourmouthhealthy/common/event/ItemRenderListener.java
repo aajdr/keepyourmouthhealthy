@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import xyz.starchenpy.keepyourmouthhealthy.common.item.toothbrush.AbstractToothbrush;
 import xyz.starchenpy.keepyourmouthhealthy.common.item.toothpaste.AbstractToothpaste;
+import xyz.starchenpy.keepyourmouthhealthy.common.util.MathUtil;
 
 public class ItemRenderListener {
     private static final Logger log = LoggerFactory.getLogger(ItemRenderListener.class);
@@ -64,23 +65,22 @@ public class ItemRenderListener {
      */
     private static void applyToothpasteTransform(PoseStack poseStack, InteractionHand hand, int remainingDuration, int useDuration, float partialTick) {
         int i = hand == InteractionHand.MAIN_HAND ? 1 : -1;
-        float progress = ((1 - ((float) remainingDuration / useDuration)) * 100) + partialTick;
+        float progress = 1 - ((remainingDuration - partialTick) / useDuration);
 
-        if (progress <= 20) {
+        if (progress <= 0.15) {
             return;
         }
 
-        float angle = progress <= 40 ? i * (progress - 20) * 1.5f : i * 30;
-        float distanceX = progress <= 40 ? i * (progress - 20) * -0.018f : i * -0.36f;
-        float distanceY = progress <= 40 ? (progress - 20) * -0.016f : -0.32f;
-        float distanceZ = progress <= 40 ? (progress - 20) * 0.025f : 0.5f;
+        float nonlinear = MathUtil.easeOutQuint(Math.min(progress - 0.15f, 0.35f) / 0.35f, 3);
 
-        poseStack.translate(distanceX, distanceY, distanceZ);
+        float angle = i * nonlinear * 30;
+        poseStack.translate(i * nonlinear * -0.32f, nonlinear * -0.32f, nonlinear * 0.4f);
         poseStack.mulPose(Axis.YP.rotationDegrees(angle));
         poseStack.mulPose(Axis.ZP.rotationDegrees(angle));
 
-        if (progress > 40) {
-            poseStack.translate(i * (progress - 30) * 0.005, 0, 0);
+        if (progress > 0.5) {
+            float progress2 = MathUtil.easeOutQuint((progress - 0.5f) / 0.5f, 2);
+            poseStack.translate(i * progress2 * 0.3, 0, 0);
         }
     }
 }

@@ -20,6 +20,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import xyz.starchenpy.keepyourmouthhealthy.common.item.toothpaste.AbstractToothpaste;
+import xyz.starchenpy.keepyourmouthhealthy.common.util.MathUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -40,8 +41,6 @@ public class AbstractToothbrush extends Item {
 
     /**
      * 使用自定义动画应返回 CUSTOM
-     * @param itemStack 物品
-     * @return 动画类型
      */
     @Nonnull
     @Override
@@ -52,7 +51,6 @@ public class AbstractToothbrush extends Item {
 
     /**
      * 决定了刷牙所需的时间
-     * @param itemStack 物品
      * @return 时间(tick)
      */
     @Override
@@ -70,16 +68,9 @@ public class AbstractToothbrush extends Item {
      * @return 冷却时间(tick)
      */
     public int getCooldown() {
-        return 400;
+        return 20;
     }
 
-    /**
-     * 使用牙刷时
-     * @param level 世界
-     * @param player 使用物品的玩家
-     * @param hand 使用手
-     * @return 使用结果
-     */
     @Nonnull
     @Override
     @ParametersAreNonnullByDefault
@@ -97,13 +88,6 @@ public class AbstractToothbrush extends Item {
         return InteractionResultHolder.fail(toothbrush);
     }
 
-    /**
-     * 使用完成后的逻辑
-     * @param itemStack 物品
-     * @param level 世界
-     * @param entity 使用者
-     * @return 物品
-     */
     @Nonnull
     @Override
     @ParametersAreNonnullByDefault
@@ -130,9 +114,8 @@ public class AbstractToothbrush extends Item {
             return;
         }
 
-        float progress = ((1 - ((float) pRemainingUseDuration / this.getUseDuration(pStack))) * 100);
-
-        if (progress < 10) {
+        float progress = 1 - ((float) pRemainingUseDuration / this.getUseDuration(pStack));
+        if (progress < 0.1) {
             return;
         }
 
@@ -141,6 +124,9 @@ public class AbstractToothbrush extends Item {
         }
     }
 
+    /**
+     * 使用时的粒子效果
+     */
     private void spawnToothpasteParticles(Level level, LivingEntity entity, ItemStack stack) {
         Vec3 speedVec3 = new Vec3(((double)level.random.nextFloat() - 0.5) * 0.1, Math.random() * 0.1 + 0.1, 0.0);
         speedVec3 = speedVec3.xRot(-entity.getXRot() * (float) (Math.PI / 180.0));
@@ -157,7 +143,7 @@ public class AbstractToothbrush extends Item {
 
     /**
      * 从 NBT 获取牙膏
-     * @param itemStack 物品
+     * @param itemStack 牙刷 ItemStack
      * @return 牙膏
      */
     public static Item getToothpaste(ItemStack itemStack) {
@@ -175,7 +161,7 @@ public class AbstractToothbrush extends Item {
 
     /**
      * 将牙膏添加到 NBT 中
-     * @param itemStack 牙刷
+     * @param itemStack 牙刷 ItemStack
      * @param toothpaste 牙膏
      */
     public static void setToothpaste(ItemStack itemStack, Item toothpaste) {
@@ -200,7 +186,6 @@ public class AbstractToothbrush extends Item {
              * @param partialTick  一部分tick 用来插值使动画平滑
              * @param equipProcess 十字指针下面的剑型槽 用来画拿出来的动画
              * @param swingProcess 摆动时间
-             * @return 是否直接渲染
              */
             @Override
             public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
@@ -221,9 +206,6 @@ public class AbstractToothbrush extends Item {
 
             /**
              * 物品取出时的上抬动作
-             * @param poseStack 物品
-             * @param hand 手
-             * @param equipProcess 剑条进度
              */
             private void applyItemArmTransform(PoseStack poseStack, HumanoidArm hand, float equipProcess) {
                 int i = hand == HumanoidArm.RIGHT ? 1 : -1;
@@ -232,47 +214,37 @@ public class AbstractToothbrush extends Item {
 
             /**
              * 挤牙膏的动作
-             * @param poseStack 物品
-             * @param arm 手
              */
             private void applyToothpasteArmTransform(PoseStack poseStack, HumanoidArm arm, int remainingDuration, int useDuration, float partialTick) {
                 int i = arm == HumanoidArm.RIGHT ? 1 : -1;
                 // 使用进度
-                float progress = ((1 - ((float) remainingDuration / useDuration)) * 100) + partialTick;
-
-                float angle = progress <= 20 ? i * progress * 1.5f : i * 30;
-                float distanceX = progress <= 20 ? i * progress * -0.015f : i * -0.3f;
-
-                poseStack.translate(distanceX, 0, 0);
+                float progress = MathUtil.easeOutQuint(1 - (remainingDuration - partialTick) / useDuration, 20);
+                poseStack.translate(i * progress * -0.3f, 0, 0);
+                float angle = i * progress * 30;
                 poseStack.mulPose(Axis.YP.rotationDegrees(angle));
                 poseStack.mulPose(Axis.ZP.rotationDegrees(angle));
             }
 
             /**
              * 刷牙动作
-             * @param poseStack 物品
-             * @param arm 手
-             * @param remainingDuration 玩家剩余的使用时间
-             * @param useDuration 物品的使用时间
              */
             private void brushingArmTransform(PoseStack poseStack, HumanoidArm arm, int remainingDuration, int useDuration, float partialTick) {
                 int i = arm == HumanoidArm.RIGHT ? 1 : -1;
                 // 使用进度
-                float progress = ((1 - ((float) remainingDuration / useDuration)) * 100) + partialTick;
+                float progress = 1 - ((remainingDuration - partialTick) / useDuration);
                 // 摆动幅度
-                double amplitude = Math.sin(progress) / 8 * i;
-                float angleZ = progress <= 10 ? i * progress * 9 : i * 90;
-                float angleX = progress <= 10 ? progress * 7.5f : 75;
+                double amplitude = i * Math.sin(progress * 100) / 6;
 
-                poseStack.mulPose(Axis.ZP.rotationDegrees(angleZ));
-                poseStack.mulPose(Axis.XP.rotationDegrees(angleX));
+                float nonlinear = MathUtil.easeOutQuint(progress, 50);
+                poseStack.mulPose(Axis.ZP.rotationDegrees(i * nonlinear * 90));
+                poseStack.mulPose(Axis.XP.rotationDegrees(nonlinear * 75));
 
                 // 根据进度调整位置
-                if (progress <= 10) {
-                    poseStack.translate(0, 0, progress / 100);
-                } else if (progress <= 40) {
+                if (progress <= 0.1) {
+                    poseStack.translate(0, 0, -0.1);
+                } else if (progress <= 0.4) {
                     poseStack.translate(0, 0, amplitude);
-                } else if (progress <= 70) {
+                } else if (progress <= 0.7) {
                     poseStack.translate(amplitude / 2, 0, 0);
                 } else {
                     poseStack.translate(0, 0, amplitude);
