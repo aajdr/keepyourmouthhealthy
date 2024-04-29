@@ -32,7 +32,7 @@ public abstract class AbstractToothpaste extends Item {
 
         // 除蛀
         int amplifier = effectToothDecay.getAmplifier();
-        if (amplifier == 0) {
+        if (amplifier <= 0) {
             entity.removeEffect(effectToothDecay.getEffect());
             return;
         }
