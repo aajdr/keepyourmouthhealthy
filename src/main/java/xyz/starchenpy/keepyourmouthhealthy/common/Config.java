@@ -32,11 +32,11 @@ public class Config {
 
     private static final ModConfigSpec.DoubleValue EXTRA_NUTRITION = BUILDER
             .comment("This value determines the extra nutrition (percentage)")
-            .defineInRange("eatingDamage", 0.2, 0, 16);
+            .defineInRange("extraNutrition", 0.2, 0, 16);
 
     private static final ModConfigSpec.DoubleValue EXTRA_SATURATION = BUILDER
             .comment("This value determines the extra saturation (percentage)")
-            .defineInRange("eatingDamage", 0.2, 0, 16);
+            .defineInRange("extraSaturation", 0.2, 0, 16);
 
     public static final ModConfigSpec SPEC = BUILDER.build();
 
