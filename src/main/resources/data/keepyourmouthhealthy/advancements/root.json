@@ -1,0 +1,24 @@
+{
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "title": {
+      "translate": "advancements.keepyourmouthhealthy.root"
+    },
+    "description": {
+      "translate": "advancements.keepyourmouthhealthy.root.desc"
+    },
+    "icon": {
+      "item": "keepyourmouthhealthy:wooden_toothbrush"
+    }
+  },
+  "criteria": {
+    "root": {
+      "trigger": "minecraft:effects_changed",
+      "conditions": {
+        "effects": {
+          "keepyourmouthhealthy:tooth_decay": {}
+        }
+      }
+    }
+  }
+}

@@ -8,6 +8,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.HumanoidArm;
@@ -19,6 +20,7 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import xyz.starchenpy.keepyourmouthhealthy.common.advancements.ModTriggers;
 import xyz.starchenpy.keepyourmouthhealthy.common.item.toothpaste.AbstractToothpaste;
 import xyz.starchenpy.keepyourmouthhealthy.common.util.MathUtil;
 
@@ -92,18 +94,22 @@ public class AbstractToothbrush extends Item {
     @Override
     @ParametersAreNonnullByDefault
     public ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity entity) {
-        if (entity instanceof Player player) {
-            ItemStack toothpaste = player.getMainHandItem() == itemStack ? player.getOffhandItem() : player.getMainHandItem();
-
-            if (getToothpaste(itemStack) instanceof AbstractToothpaste item) {
-                item.effect(player);
-                setToothpaste(itemStack, null);
+        if (getToothpaste(itemStack) instanceof AbstractToothpaste toothpaste) {
+            toothpaste.effect(entity);
+            setToothpaste(itemStack, null);
+            if (entity instanceof ServerPlayer player) {
                 player.getCooldowns().addCooldown(this, getCooldown());
-            } else if (toothpaste.getItem() instanceof AbstractToothpaste item) {
-                toothpaste.hurtAndBreak(1, player, (e) -> {});
-                setToothpaste(itemStack, item);
+                ModTriggers.AFTER_BRUSHING_TEETH.get().trigger(player, itemStack);
             }
+            return itemStack;
         }
+
+        ItemStack toothpasteOnHand = entity.getMainHandItem() == itemStack ? entity.getOffhandItem() : entity.getMainHandItem();
+        if (toothpasteOnHand.getItem() instanceof AbstractToothpaste item) {
+            toothpasteOnHand.hurtAndBreak(1, entity, (e) -> {});
+            setToothpaste(itemStack, item);
+        }
+
         return itemStack;
     }
 

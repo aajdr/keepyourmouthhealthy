@@ -4,6 +4,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import xyz.starchenpy.keepyourmouthhealthy.common.effect.ModEffects;
+import xyz.starchenpy.keepyourmouthhealthy.common.util.EffectUtil;
 
 public abstract class AbstractToothpaste extends Item {
     protected int maxLevel;
@@ -30,14 +31,14 @@ public abstract class AbstractToothpaste extends Item {
         }
 
         // 除蛀
-        if (effectToothDecay.getAmplifier() == 0) {
+        int amplifier = effectToothDecay.getAmplifier();
+        if (amplifier == 0) {
             entity.removeEffect(effectToothDecay.getEffect());
-        } else {
-            if (effectToothDecay.getAmplifier() < maxLevel) {
-                entity.removeEffect(effectToothDecay.getEffect());
-                MobEffectInstance newEffect = new MobEffectInstance(ModEffects.TOOTH_DECAY.get(), -1, effectToothDecay.getAmplifier() - 1);
-                entity.addEffect(newEffect);
-            }
+            return;
+        }
+
+        if (amplifier < this.maxLevel) {
+            EffectUtil.updateEffect(entity, effectToothDecay, amplifier - 1);
         }
     }
 

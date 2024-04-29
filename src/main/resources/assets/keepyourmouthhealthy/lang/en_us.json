@@ -10,5 +10,17 @@
 
   "effect.keepyourmouthhealthy.tooth_decay": "Tooth Decay",
   "effect.keepyourmouthhealthy.oral_injury": "Oral Injury",
-  "effect.keepyourmouthhealthy.healthy_oral": "Healthy Oral"
+  "effect.keepyourmouthhealthy.healthy_oral": "Healthy Oral",
+
+  "advancements.keepyourmouthhealthy.root": "Tooth Decay",
+  "advancements.keepyourmouthhealthy.root.desc": "Oh, it's cavities! It's time to love your mouth!",
+
+  "advancements.keepyourmouthhealthy.massive_bleeding": "Massive Bleeding",
+  "advancements.keepyourmouthhealthy.massive_bleeding.desc": "Eating with at least 3 level of oral injury. It really hurts!",
+
+  "advancements.keepyourmouthhealthy.teeth_whitening": "Teeth Whitening",
+  "advancements.keepyourmouthhealthy.teeth_whitening.desc": "First brushing teeth",
+
+  "advancements.keepyourmouthhealthy.do_not_open_your_mouth": "Don't open your mouth",
+  "advancements.keepyourmouthhealthy.do_not_open_your_mouth.desc": "Obtain at least level 4 tooth decay"
 }

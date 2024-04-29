@@ -10,5 +10,17 @@
 
   "effect.keepyourmouthhealthy.tooth_decay": "蛀牙",
   "effect.keepyourmouthhealthy.oral_injury": "口腔受损",
-  "effect.keepyourmouthhealthy.healthy_oral": "健康口腔"
+  "effect.keepyourmouthhealthy.healthy_oral": "健康口腔",
+
+  "advancements.keepyourmouthhealthy.root": "蛀牙",
+  "advancements.keepyourmouthhealthy.root.desc": "哦，是蛀牙！是时候爱护下你的嘴了！",
+
+  "advancements.keepyourmouthhealthy.massive_bleeding": "大出血",
+  "advancements.keepyourmouthhealthy.massive_bleeding.desc": "在至少3级的口腔损伤下吃东西，真疼！",
+
+  "advancements.keepyourmouthhealthy.teeth_whitening": "牙齿美白",
+  "advancements.keepyourmouthhealthy.teeth_whitening.desc": "第一次刷牙",
+
+  "advancements.keepyourmouthhealthy.do_not_open_your_mouth": "现在不要张嘴",
+  "advancements.keepyourmouthhealthy.do_not_open_your_mouth.desc": "获得至少4级的蛀牙"
 }

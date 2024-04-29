@@ -1,0 +1,30 @@
+{
+  "parent": "keepyourmouthhealthy:do_not_open_your_mouth",
+  "display": {
+    "title": {
+      "translate": "advancements.keepyourmouthhealthy.massive_bleeding"
+    },
+    "description": {
+      "translate": "advancements.keepyourmouthhealthy.massive_bleeding.desc"
+    },
+    "icon": {
+      "item": "minecraft:red_wool"
+    }
+  },
+  "criteria": {
+    "massive_bleeding": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "player": {
+          "effects": {
+            "keepyourmouthhealthy:oral_injury": {
+              "amplifier": {
+                "min": 2
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -8,6 +8,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import xyz.starchenpy.keepyourmouthhealthy.common.Config;
 import xyz.starchenpy.keepyourmouthhealthy.common.effect.ModEffects;
+import xyz.starchenpy.keepyourmouthhealthy.common.util.EffectUtil;
 
 import java.util.Random;
 
@@ -50,31 +51,37 @@ public class EntityEatListener {
         MobEffectInstance effectOralInjury = player.getEffect(ModEffects.ORAL_INJURY.get());
         MobEffectInstance effectHealthyOral = player.getEffect(ModEffects.HEALTHY_ORAL.get());
 
-        //如果有口腔健康 buff 就不给新 buff
+        //如果有口腔健康 buff 就不会蛀牙
         if (effectHealthyOral != null) {
             return;
         }
 
-        if (new Random().nextInt() >= Config.chanceOfToothDecay) {
+        if (new Random().nextInt(100) > Config.chanceOfToothDecay) {
             return;
         }
 
-        // 如果没有蛀牙 buff 就给一个
+        // 给予蛀牙 buff
         if (effectToothDecay == null) {
             player.addEffect(new MobEffectInstance(ModEffects.TOOTH_DECAY.get(), -1));
             return;
         }
+        int toothDecayAmplifier = effectToothDecay.getAmplifier();
+        if (toothDecayAmplifier < Config.toothDecayMaxLevel) {
+            EffectUtil.updateEffect(player, effectToothDecay, toothDecayAmplifier + 1);
+            return;
+        }
 
-        //等级限制
-        if (effectToothDecay.getAmplifier() < Config.toothDecayMaxLevel) {
-            effectToothDecay.update(new MobEffectInstance(ModEffects.TOOTH_DECAY.get(), -1, effectToothDecay.getAmplifier() + 1));
-        } else if (effectOralInjury != null) {
-            if (effectOralInjury.getAmplifier() < Config.oralInjuryMaxLevel) {
-                int duration = 2400 * (effectOralInjury.getAmplifier() + 1);
-                effectOralInjury.update(new MobEffectInstance(ModEffects.ORAL_INJURY.get(), duration, effectOralInjury.getAmplifier() + 1));
-            }
-        } else {
+        // 给予口腔损伤 buff
+        if (effectOralInjury == null) {
             player.addEffect(new MobEffectInstance(ModEffects.ORAL_INJURY.get(), 2400));
+            return;
+        }
+        int oralInjuryAmplifier = effectOralInjury.getAmplifier();
+        int duration = 2400 * (oralInjuryAmplifier + 1);
+        if (oralInjuryAmplifier < Config.oralInjuryMaxLevel) {
+            EffectUtil.updateEffect(player, effectOralInjury, duration, oralInjuryAmplifier + 1);
+        } else {
+            EffectUtil.updateEffect(player, effectOralInjury, duration, oralInjuryAmplifier);
         }
     }
 
@@ -87,13 +94,13 @@ public class EntityEatListener {
             player.hurt(player.damageSources().magic(), damage);
         }
 
-        if (effectHealthyOral != null) {
+        if (effectHealthyOral != null && item.isEdible()) {
             FoodProperties foodProperties = item.getFoodProperties(player);
-            if (foodProperties != null) {
-                int nutrition = (int) (foodProperties.getNutrition() * Config.extraNutrition);
-                float saturation = foodProperties.getSaturationModifier() * Config.extraSaturation;
-                player.getFoodData().eat(nutrition, saturation);
-            }
+            // item.isEdible() 已经判断过不为 null 了，这里加断言消除警告
+            assert foodProperties != null;
+            int nutrition = (int) (foodProperties.getNutrition() * Config.extraNutrition);
+            float saturation = foodProperties.getSaturationModifier() * Config.extraSaturation;
+            player.getFoodData().eat(nutrition, saturation);
         }
     }
 }

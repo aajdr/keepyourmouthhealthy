@@ -1,0 +1,19 @@
+{
+  "parent": "keepyourmouthhealthy:root",
+  "display": {
+    "title": {
+      "translate": "advancements.keepyourmouthhealthy.teeth_whitening"
+    },
+    "description": {
+      "translate": "advancements.keepyourmouthhealthy.teeth_whitening.desc"
+    },
+    "icon": {
+      "item": "keepyourmouthhealthy:wooden_toothbrush"
+    }
+  },
+  "criteria": {
+    "teeth_whitening": {
+      "trigger": "keepyourmouthhealthy:after_brushing_teeth"
+    }
+  }
+}

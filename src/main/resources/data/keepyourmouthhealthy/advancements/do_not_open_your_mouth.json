@@ -1,0 +1,28 @@
+{
+  "parent": "keepyourmouthhealthy:root",
+  "display": {
+    "title": {
+      "translate": "advancements.keepyourmouthhealthy.do_not_open_your_mouth"
+    },
+    "description": {
+      "translate": "advancements.keepyourmouthhealthy.do_not_open_your_mouth.desc"
+    },
+    "icon": {
+      "item": "keepyourmouthhealthy:wooden_toothbrush"
+    }
+  },
+  "criteria": {
+    "do_not_open_your_mouth": {
+      "trigger": "minecraft:effects_changed",
+      "conditions": {
+        "effects": {
+          "keepyourmouthhealthy:tooth_decay": {
+            "amplifier": {
+              "min": 3
+            }
+          }
+        }
+      }
+    }
+  }
+}
