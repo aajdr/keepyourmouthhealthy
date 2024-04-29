@@ -5,6 +5,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.common.EffectCures;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import xyz.starchenpy.keepyourmouthhealthy.common.Config;
 import xyz.starchenpy.keepyourmouthhealthy.common.effect.ModEffects;
@@ -60,9 +61,11 @@ public class EntityEatListener {
             return;
         }
 
-        // 给予蛀牙 buff
+        // 给予蛀牙 buff, 并且设定无法被牛奶移除
         if (effectToothDecay == null) {
-            player.addEffect(new MobEffectInstance(ModEffects.TOOTH_DECAY.get(), -1));
+            MobEffectInstance instance = new MobEffectInstance(ModEffects.TOOTH_DECAY.get(), -1);
+            instance.getCures().remove(EffectCures.MILK);
+            player.addEffect(instance);
             return;
         }
         int toothDecayAmplifier = effectToothDecay.getAmplifier();
