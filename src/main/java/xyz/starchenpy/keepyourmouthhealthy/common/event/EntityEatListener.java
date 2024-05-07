@@ -21,8 +21,8 @@ public class EntityEatListener {
         }
 
         if (event.getEntity() instanceof Player player) {
-            givePlayerEffect(player);
             eatFinish(player, event.getItem());
+            givePlayerEffect(player);
         }
     }
 
