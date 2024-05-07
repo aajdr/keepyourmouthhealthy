@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "s": {
+      "item": "minecraft:stick"
+    },
+    "b": {
+      "item": "keepyourmouthhealthy:bristle"
+    },
+    "l": {
+      "item": "minecraft:string"
+    }
+  },
+  "pattern": [
+    "bbb",
+    "lsl"
+  ],
+  "result": {
+    "item": "keepyourmouthhealthy:toothbrush_head"
+  }
+}
