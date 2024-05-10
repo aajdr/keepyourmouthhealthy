@@ -1,0 +1,6 @@
+{
+  "parent": "keepyourmouthhealthy:item/toothpaste",
+  "textures": {
+    "layer0": "keepyourmouthhealthy:item/redstone_toothpaste"
+  }
+}

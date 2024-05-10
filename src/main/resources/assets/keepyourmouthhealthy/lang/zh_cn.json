@@ -8,6 +8,10 @@
 
   "item.keepyourmouthhealthy.charcoal_toothpaste": "木炭牙膏",
   "item.keepyourmouthhealthy.flint_toothpaste": "燧石牙膏",
+  "item.keepyourmouthhealthy.quartz_toothpaste": "石英牙膏",
+  "item.keepyourmouthhealthy.redstone_toothpaste": "红石牙膏",
+  "item.keepyourmouthhealthy.lapis_lazuli_toothpaste": "青金石牙膏",
+  "item.keepyourmouthhealthy.golden_apple_toothpaste": "金苹果牙膏",
 
   "item.keepyourmouthhealthy.bristle": "猪鬃",
   "item.keepyourmouthhealthy.toothbrush_head": "牙刷头",
@@ -15,6 +19,8 @@
   "effect.keepyourmouthhealthy.tooth_decay": "蛀牙",
   "effect.keepyourmouthhealthy.injury_oral": "口腔受损",
   "effect.keepyourmouthhealthy.clean_oral": "洁净口腔",
+
+  "death.attack.oral_bleeding": "%1$s 在吃东西的时候被扎爆了动脉",
 
   "advancements.keepyourmouthhealthy.root": "蛀牙",
   "advancements.keepyourmouthhealthy.root.desc": "哦，是蛀牙！是时候爱护下你的嘴了！",

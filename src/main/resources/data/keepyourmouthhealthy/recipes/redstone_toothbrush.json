@@ -2,17 +2,20 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "a": {
-      "item": "minecraft:stone"
+    "h": {
+      "item": "keepyourmouthhealthy:toothbrush_head"
     },
-    "b": {
-      "item": "minecraft:stick"
+    "q": {
+      "item": "minecraft:quartz"
+    },
+    "r": {
+      "item": "minecraft:redstone"
     }
   },
   "pattern": [
-    "aaa",
-    " b ",
-    " b "
+    " rh",
+    "rqr",
+    "qr "
   ],
   "result": {
     "item": "keepyourmouthhealthy:redstone_toothbrush"

@@ -2,17 +2,20 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "a": {
-      "item": "minecraft:stone"
+    "s": {
+      "item": "minecraft:stick"
     },
     "b": {
-      "item": "minecraft:stick"
+      "item": "keepyourmouthhealthy:bristle"
+    },
+    "t": {
+      "item": "minecraft:string"
     }
   },
   "pattern": [
-    "aaa",
-    " bb",
-    " b "
+    " bt",
+    " s ",
+    "s  "
   ],
   "result": {
     "item": "keepyourmouthhealthy:wooden_toothbrush"

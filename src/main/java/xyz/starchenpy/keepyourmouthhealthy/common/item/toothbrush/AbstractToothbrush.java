@@ -70,7 +70,7 @@ public class AbstractToothbrush extends Item {
      * @return 冷却时间(tick)
      */
     public int getCooldown() {
-        return 20;
+        return 1200;
     }
 
     @Nonnull

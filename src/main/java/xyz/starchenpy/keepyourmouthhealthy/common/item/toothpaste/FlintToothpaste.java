@@ -2,6 +2,7 @@ package xyz.starchenpy.keepyourmouthhealthy.common.item.toothpaste;
 
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
+import xyz.starchenpy.keepyourmouthhealthy.common.ModDamageType;
 import xyz.starchenpy.keepyourmouthhealthy.common.effect.ModEffects;
 
 public class FlintToothpaste extends AbstractToothpaste {
@@ -14,6 +15,6 @@ public class FlintToothpaste extends AbstractToothpaste {
         cleanTooth(entity);
         // 加口腔损伤buff
         entity.addEffect(new MobEffectInstance(ModEffects.INJURY_ORAL.get(), 1200));
-        entity.hurt(entity.damageSources().magic(), 2);
+        entity.hurt(entity.damageSources().source(ModDamageType.ORAL_BLEEDING), 2);
     }
 }

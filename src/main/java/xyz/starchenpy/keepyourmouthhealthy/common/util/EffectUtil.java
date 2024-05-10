@@ -20,8 +20,11 @@ public class EffectUtil {
 
         if (oldLevel > amplifier) {
             entity.removeEffect(effect.getEffect());
-            MobEffectInstance newEffect = new MobEffectInstance(ModEffects.TOOTH_DECAY.get(), duration, amplifier);
-            entity.addEffect(newEffect);
+
+            if (amplifier >= 0) {
+                MobEffectInstance newEffect = new MobEffectInstance(ModEffects.TOOTH_DECAY.get(), duration, amplifier);
+                entity.addEffect(newEffect);
+            }
         } else {
             effect.update(new MobEffectInstance(effect.getEffect(), duration, amplifier));
             // effect.update() 不会触发成就，这里自行触发一次

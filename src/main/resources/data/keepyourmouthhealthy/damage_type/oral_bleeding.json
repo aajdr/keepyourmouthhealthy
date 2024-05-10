@@ -1,0 +1,7 @@
+{
+  "message_id": "oral_bleeding",
+  "death_message_type": "default",
+  "exhaustion": 0,
+  "effects": "poking",
+  "scaling": "never"
+}

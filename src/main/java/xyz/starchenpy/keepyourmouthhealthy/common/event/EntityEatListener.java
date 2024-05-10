@@ -8,6 +8,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.common.EffectCures;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import xyz.starchenpy.keepyourmouthhealthy.common.Config;
+import xyz.starchenpy.keepyourmouthhealthy.common.ModDamageType;
 import xyz.starchenpy.keepyourmouthhealthy.common.effect.ModEffects;
 import xyz.starchenpy.keepyourmouthhealthy.common.util.EffectUtil;
 
@@ -89,7 +90,7 @@ public class EntityEatListener {
 
         if (effectInjuryOral != null) {
             int damage = (effectInjuryOral.getAmplifier() + 1) * Config.eatingDamage;
-            player.hurt(player.damageSources().magic(), damage);
+            player.hurt(player.damageSources().source(ModDamageType.ORAL_BLEEDING), damage);
         }
 
         if (effectCleanOral != null && item.isEdible()) {

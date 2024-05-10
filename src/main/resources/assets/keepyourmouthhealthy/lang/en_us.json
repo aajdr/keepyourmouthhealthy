@@ -8,6 +8,10 @@
 
   "item.keepyourmouthhealthy.charcoal_toothpaste": "Charcoal Toothpaste",
   "item.keepyourmouthhealthy.flint_toothpaste": "Flint Toothpaste",
+  "item.keepyourmouthhealthy.quartz_toothpaste": "Quartz Toothpaste",
+  "item.keepyourmouthhealthy.redstone_toothpaste": "Redstone Toothpaste",
+  "item.keepyourmouthhealthy.lapis_lazuli_toothpaste": "Lapis Lazuli Toothpaste",
+  "item.keepyourmouthhealthy.golden_apple_toothpaste": "Golden Apple Toothpaste",
 
   "item.keepyourmouthhealthy.bristle": "Bristle",
   "item.keepyourmouthhealthy.toothbrush_head": "Toothbrush Head",
@@ -15,6 +19,8 @@
   "effect.keepyourmouthhealthy.tooth_decay": "Tooth Decay",
   "effect.keepyourmouthhealthy.injury_oral": "Injury Oral",
   "effect.keepyourmouthhealthy.clean_oral": "Clean Oral",
+
+  "death.attack.oral_bleeding": "%1$s punctured the oral artery while eating.",
 
   "advancements.keepyourmouthhealthy.root": "Tooth Decay",
   "advancements.keepyourmouthhealthy.root.desc": "Oh, it's cavities! It's time to love your mouth!",

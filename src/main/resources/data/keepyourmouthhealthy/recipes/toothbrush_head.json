@@ -2,8 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "s": {
-      "item": "minecraft:stick"
+    "q": {
+      "item": "minecraft:quartz"
     },
     "b": {
       "item": "keepyourmouthhealthy:bristle"
@@ -14,9 +14,10 @@
   },
   "pattern": [
     "bbb",
-    "lsl"
+    "lql"
   ],
   "result": {
-    "item": "keepyourmouthhealthy:toothbrush_head"
+    "item": "keepyourmouthhealthy:toothbrush_head",
+    "count": 2
   }
 }
