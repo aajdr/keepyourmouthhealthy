@@ -13,7 +13,7 @@ public class FlintToothpaste extends AbstractToothpaste {
     public void effect(LivingEntity entity) {
         cleanTooth(entity);
         // 加口腔损伤buff
-        entity.addEffect(new MobEffectInstance(ModEffects.ORAL_INJURY.get(), 2400));
+        entity.addEffect(new MobEffectInstance(ModEffects.INJURY_ORAL.get(), 1200));
         entity.hurt(entity.damageSources().magic(), 2);
     }
 }

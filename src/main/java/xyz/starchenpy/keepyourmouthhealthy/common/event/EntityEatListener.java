@@ -43,17 +43,13 @@ public class EntityEatListener {
         }
     }
 
-    /**
-     * 该方法用于给吃完东西的玩家上 buff
-     * @param player 玩家
-     */
     private static void givePlayerEffect(Player player) {
         MobEffectInstance effectToothDecay = player.getEffect(ModEffects.TOOTH_DECAY.get());
-        MobEffectInstance effectOralInjury = player.getEffect(ModEffects.ORAL_INJURY.get());
-        MobEffectInstance effectHealthyOral = player.getEffect(ModEffects.HEALTHY_ORAL.get());
+        MobEffectInstance effectInjuryOral = player.getEffect(ModEffects.INJURY_ORAL.get());
+        MobEffectInstance effectCleanOral = player.getEffect(ModEffects.CLEAN_ORAL.get());
 
-        //如果有口腔健康 buff 就不会蛀牙
-        if (effectHealthyOral != null) {
+        //如果有口腔洁净 buff 就不会蛀牙
+        if (effectCleanOral != null) {
             return;
         }
 
@@ -61,9 +57,9 @@ public class EntityEatListener {
             return;
         }
 
-        // 给予蛀牙 buff, 并且设定无法被牛奶移除
         if (effectToothDecay == null) {
             MobEffectInstance instance = new MobEffectInstance(ModEffects.TOOTH_DECAY.get(), -1);
+            // 设定无法被牛奶移除
             instance.getCures().remove(EffectCures.MILK);
             player.addEffect(instance);
             return;
@@ -74,32 +70,31 @@ public class EntityEatListener {
             return;
         }
 
-        // 给予口腔损伤 buff
-        if (effectOralInjury == null) {
-            player.addEffect(new MobEffectInstance(ModEffects.ORAL_INJURY.get(), 2400));
+        if (effectInjuryOral == null) {
+            player.addEffect(new MobEffectInstance(ModEffects.INJURY_ORAL.get(), 2400));
             return;
         }
-        int oralInjuryAmplifier = effectOralInjury.getAmplifier();
+        int oralInjuryAmplifier = effectInjuryOral.getAmplifier();
         int duration = 2400 * (oralInjuryAmplifier + 1);
         if (oralInjuryAmplifier < Config.oralInjuryMaxLevel) {
-            EffectUtil.updateEffect(player, effectOralInjury, duration, oralInjuryAmplifier + 1);
+            EffectUtil.updateEffect(player, effectInjuryOral, duration, oralInjuryAmplifier + 1);
         } else {
-            EffectUtil.updateEffect(player, effectOralInjury, duration, oralInjuryAmplifier);
+            EffectUtil.updateEffect(player, effectInjuryOral, duration, oralInjuryAmplifier);
         }
     }
 
     private static void eatFinish(Player player, ItemStack item) {
-        MobEffectInstance effectOralInjury = player.getEffect(ModEffects.ORAL_INJURY.get());
-        MobEffectInstance effectHealthyOral = player.getEffect(ModEffects.HEALTHY_ORAL.get());
+        MobEffectInstance effectInjuryOral = player.getEffect(ModEffects.INJURY_ORAL.get());
+        MobEffectInstance effectCleanOral = player.getEffect(ModEffects.CLEAN_ORAL.get());
 
-        if (effectOralInjury != null) {
-            int damage = (effectOralInjury.getAmplifier() + 1) * Config.eatingDamage;
+        if (effectInjuryOral != null) {
+            int damage = (effectInjuryOral.getAmplifier() + 1) * Config.eatingDamage;
             player.hurt(player.damageSources().magic(), damage);
         }
 
-        if (effectHealthyOral != null && item.isEdible()) {
+        if (effectCleanOral != null && item.isEdible()) {
             FoodProperties foodProperties = item.getFoodProperties(player);
-            // item.isEdible() 已经判断过不为 null 了，这里加断言消除警告
+            // 已经判断过不为 null 了，这里加断言消除警告
             assert foodProperties != null;
             int nutrition = (int) (foodProperties.getNutrition() * Config.extraNutrition);
             float saturation = foodProperties.getSaturationModifier() * Config.extraSaturation;

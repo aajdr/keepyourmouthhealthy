@@ -13,8 +13,8 @@
   "item.keepyourmouthhealthy.toothbrush_head": "牙刷头",
 
   "effect.keepyourmouthhealthy.tooth_decay": "蛀牙",
-  "effect.keepyourmouthhealthy.oral_injury": "口腔受损",
-  "effect.keepyourmouthhealthy.healthy_oral": "健康口腔",
+  "effect.keepyourmouthhealthy.injury_oral": "口腔受损",
+  "effect.keepyourmouthhealthy.clean_oral": "洁净口腔",
 
   "advancements.keepyourmouthhealthy.root": "蛀牙",
   "advancements.keepyourmouthhealthy.root.desc": "哦，是蛀牙！是时候爱护下你的嘴了！",

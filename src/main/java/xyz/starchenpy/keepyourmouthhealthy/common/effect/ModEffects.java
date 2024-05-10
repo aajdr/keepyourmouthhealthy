@@ -16,10 +16,10 @@ public class ModEffects {
     public static final Supplier<MobEffect> TOOTH_DECAY = MOB_EFFECTS.register("tooth_decay", () ->
             new ModEffect(MobEffectCategory.BENEFICIAL, 0x999999));
 
-    public static final Supplier<MobEffect> ORAL_INJURY = MOB_EFFECTS.register("oral_injury", () ->
+    public static final Supplier<MobEffect> INJURY_ORAL = MOB_EFFECTS.register("injury_oral", () ->
             new ModEffect(MobEffectCategory.BENEFICIAL, 0xCC0000));
 
-    public static final Supplier<MobEffect> HEALTHY_ORAL = MOB_EFFECTS.register("healthy_oral", () ->
+    public static final Supplier<MobEffect> CLEAN_ORAL = MOB_EFFECTS.register("clean_oral", () ->
             new ModEffect(MobEffectCategory.BENEFICIAL, 0xFFFF33));
 
     public static void register(IEventBus modEventBus) {

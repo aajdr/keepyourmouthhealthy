@@ -20,7 +20,7 @@ public class EffectUtil {
 
         if (oldLevel > amplifier) {
             entity.removeEffect(effect.getEffect());
-            MobEffectInstance newEffect = new MobEffectInstance(ModEffects.TOOTH_DECAY.get(), duration, amplifier - 1);
+            MobEffectInstance newEffect = new MobEffectInstance(ModEffects.TOOTH_DECAY.get(), duration, amplifier);
             entity.addEffect(newEffect);
         } else {
             effect.update(new MobEffectInstance(effect.getEffect(), duration, amplifier));

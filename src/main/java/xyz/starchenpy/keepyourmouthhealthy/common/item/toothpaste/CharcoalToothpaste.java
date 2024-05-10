@@ -13,6 +13,6 @@ public class CharcoalToothpaste extends AbstractToothpaste {
     public void effect(LivingEntity entity) {
         cleanTooth(entity);
         // 加口腔清洁buff
-        entity.addEffect(new MobEffectInstance(ModEffects.HEALTHY_ORAL.get(), 9600));
+        entity.addEffect(new MobEffectInstance(ModEffects.CLEAN_ORAL.get(), 9600));
     }
 }

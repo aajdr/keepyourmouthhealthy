@@ -13,8 +13,8 @@
   "item.keepyourmouthhealthy.toothbrush_head": "Toothbrush Head",
 
   "effect.keepyourmouthhealthy.tooth_decay": "Tooth Decay",
-  "effect.keepyourmouthhealthy.oral_injury": "Oral Injury",
-  "effect.keepyourmouthhealthy.healthy_oral": "Healthy Oral",
+  "effect.keepyourmouthhealthy.injury_oral": "Injury Oral",
+  "effect.keepyourmouthhealthy.clean_oral": "Clean Oral",
 
   "advancements.keepyourmouthhealthy.root": "Tooth Decay",
   "advancements.keepyourmouthhealthy.root.desc": "Oh, it's cavities! It's time to love your mouth!",
