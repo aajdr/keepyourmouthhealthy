@@ -3,8 +3,6 @@ package xyz.starchenpy.keepyourmouthhealthy.common.item.toothbrush;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.core.particles.ItemParticleOption;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -22,6 +20,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import xyz.starchenpy.keepyourmouthhealthy.common.advancements.ModTriggers;
 import xyz.starchenpy.keepyourmouthhealthy.common.item.toothpaste.AbstractToothpaste;
+import xyz.starchenpy.keepyourmouthhealthy.common.particle.ToothpasteParticleOption;
 import xyz.starchenpy.keepyourmouthhealthy.common.util.MathUtil;
 
 import javax.annotation.Nonnull;
@@ -125,8 +124,9 @@ public class AbstractToothbrush extends Item {
             return;
         }
 
-        if (getToothpaste(pStack) instanceof AbstractToothpaste) {
-            spawnToothpasteParticles(pLevel, pLivingEntity, pStack);
+        Item toothpaste = getToothpaste(pStack);
+        if (toothpaste instanceof AbstractToothpaste) {
+            spawnToothpasteParticles(pLevel, pLivingEntity, new ItemStack(toothpaste));
         }
     }
 
@@ -144,7 +144,7 @@ public class AbstractToothbrush extends Item {
         posVec3 = posVec3.yRot(-entity.getYRot() * (float) (Math.PI / 180.0));
         posVec3 = posVec3.add(entity.getX(), entity.getEyeY(), entity.getZ());
 
-        level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, stack), posVec3.x, posVec3.y, posVec3.z, speedVec3.x, speedVec3.y + 0.05, speedVec3.z);
+        level.addParticle(new ToothpasteParticleOption(stack), posVec3.x, posVec3.y, posVec3.z, speedVec3.x, speedVec3.y + 0.05, speedVec3.z);
     }
 
     /**

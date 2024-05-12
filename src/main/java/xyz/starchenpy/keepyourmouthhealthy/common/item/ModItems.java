@@ -24,7 +24,7 @@ public class ModItems {
     public static final DeferredItem<Item> CHARCOAL_TOOTHPASTE = ITEMS.registerItem("charcoal_toothpaste", CharcoalToothpaste::new, new Item.Properties().durability(16));
     public static final DeferredItem<Item> FLINT_TOOTHPASTE = ITEMS.registerItem("flint_toothpaste", FlintToothpaste::new, new Item.Properties().durability(12));
     public static final DeferredItem<Item> QUARTZ_TOOTHPASTE = ITEMS.registerItem("quartz_toothpaste", QuartzToothpaste::new, new Item.Properties().durability(12));
-    public static final DeferredItem<Item> REDSTONE_TOOTHPASTE = ITEMS.registerItem("redstone_toothpaste", RedstoneToothbrush::new, new Item.Properties().durability(12));
+    public static final DeferredItem<Item> REDSTONE_TOOTHPASTE = ITEMS.registerItem("redstone_toothpaste", RedstoneToothpaste::new, new Item.Properties().durability(12));
     public static final DeferredItem<Item> LAPIS_LAZULI_TOOTHPASTE = ITEMS.registerItem("lapis_lazuli_toothpaste", LapisLazuliToothpaste::new, new Item.Properties().durability(12));
     public static final DeferredItem<Item> GOLDEN_APPLE_TOOTHPASTE = ITEMS.registerItem("golden_apple_toothpaste", GoldenAppleToothpaste::new, new Item.Properties().durability(12));
 

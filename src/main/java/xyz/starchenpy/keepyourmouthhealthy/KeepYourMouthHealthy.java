@@ -12,6 +12,7 @@ import xyz.starchenpy.keepyourmouthhealthy.common.event.EntityEatListener;
 import xyz.starchenpy.keepyourmouthhealthy.common.event.ItemRenderListener;
 import xyz.starchenpy.keepyourmouthhealthy.common.item.ModItems;
 import xyz.starchenpy.keepyourmouthhealthy.common.item.ModTabs;
+import xyz.starchenpy.keepyourmouthhealthy.common.particle.ModParticleType;
 
 @Mod(KeepYourMouthHealthy.MOD_ID)
 public class KeepYourMouthHealthy {
@@ -22,6 +23,9 @@ public class KeepYourMouthHealthy {
         ModTabs.register(modEventBus);
         ModEffects.register(modEventBus);
         ModTriggers.register(modEventBus);
+        ModParticleType.register(modEventBus);
+
+        modEventBus.register(ModParticleType.class);
 
         NeoForge.EVENT_BUS.register(EntityEatListener.class);
         NeoForge.EVENT_BUS.register(ItemRenderListener.class);
