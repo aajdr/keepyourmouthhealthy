@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import xyz.starchenpy.keepyourmouthhealthy.common.item.toothbrush.AbstractToothbrush;
 import xyz.starchenpy.keepyourmouthhealthy.common.item.toothpaste.AbstractToothpaste;
 import xyz.starchenpy.keepyourmouthhealthy.common.util.MathUtil;
+import xyz.starchenpy.keepyourmouthhealthy.common.util.NbtUtil;
 
 public class ItemRenderListener {
     private static final Logger log = LoggerFactory.getLogger(ItemRenderListener.class);
@@ -39,7 +40,7 @@ public class ItemRenderListener {
             return;
         }
         // 牙刷上有牙膏说明正在刷牙，直接返回
-        if (AbstractToothbrush.getToothpaste(toothbrush) instanceof AbstractToothpaste) {
+        if (NbtUtil.getToothpaste(toothbrush) instanceof AbstractToothpaste) {
             return;
         }
 

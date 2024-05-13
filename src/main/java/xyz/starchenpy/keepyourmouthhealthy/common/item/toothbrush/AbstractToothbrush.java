@@ -3,9 +3,6 @@ package xyz.starchenpy.keepyourmouthhealthy.common.item.toothbrush;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -22,13 +19,13 @@ import xyz.starchenpy.keepyourmouthhealthy.common.advancements.ModTriggers;
 import xyz.starchenpy.keepyourmouthhealthy.common.item.toothpaste.AbstractToothpaste;
 import xyz.starchenpy.keepyourmouthhealthy.common.particle.ToothpasteParticleOption;
 import xyz.starchenpy.keepyourmouthhealthy.common.util.MathUtil;
+import xyz.starchenpy.keepyourmouthhealthy.common.util.NbtUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.Consumer;
 
 public class AbstractToothbrush extends Item {
-    protected static final String NBT_NAME = "toothpaste";
     protected int useDuration;
 
     public AbstractToothbrush(Properties item) {
@@ -57,7 +54,7 @@ public class AbstractToothbrush extends Item {
     @Override
     @ParametersAreNonnullByDefault
     public int getUseDuration(ItemStack itemStack) {
-        if (getToothpaste(itemStack) != null) {
+        if (NbtUtil.getToothpaste(itemStack) != null) {
             return useDuration;
         }
 
@@ -81,7 +78,7 @@ public class AbstractToothbrush extends Item {
         ItemStack toothpaste = player.getItemInHand(offHand);
 
         // 刷牙或者抹牙膏
-        if (toothpaste.getItem() instanceof AbstractToothpaste || getToothpaste(toothbrush) instanceof AbstractToothpaste) {
+        if (toothpaste.getItem() instanceof AbstractToothpaste || NbtUtil.getToothpaste(toothbrush) instanceof AbstractToothpaste) {
             player.startUsingItem(hand);
             return InteractionResultHolder.pass(toothbrush);
         }
@@ -93,9 +90,9 @@ public class AbstractToothbrush extends Item {
     @Override
     @ParametersAreNonnullByDefault
     public ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity entity) {
-        if (getToothpaste(itemStack) instanceof AbstractToothpaste toothpaste) {
+        if (NbtUtil.getToothpaste(itemStack) instanceof AbstractToothpaste toothpaste) {
             toothpaste.effect(entity);
-            setToothpaste(itemStack, null);
+            NbtUtil.setToothpaste(itemStack, null);
             if (entity instanceof ServerPlayer player) {
                 player.getCooldowns().addCooldown(this, getCooldown());
                 ModTriggers.AFTER_BRUSHING_TEETH.get().trigger(player, itemStack);
@@ -106,7 +103,7 @@ public class AbstractToothbrush extends Item {
         ItemStack toothpasteOnHand = entity.getMainHandItem() == itemStack ? entity.getOffhandItem() : entity.getMainHandItem();
         if (toothpasteOnHand.getItem() instanceof AbstractToothpaste item) {
             toothpasteOnHand.hurtAndBreak(1, entity, (e) -> {});
-            setToothpaste(itemStack, item);
+            NbtUtil.setToothpaste(itemStack, item);
         }
 
         return itemStack;
@@ -124,7 +121,7 @@ public class AbstractToothbrush extends Item {
             return;
         }
 
-        Item toothpaste = getToothpaste(pStack);
+        Item toothpaste = NbtUtil.getToothpaste(pStack);
         if (toothpaste instanceof AbstractToothpaste) {
             spawnToothpasteParticles(pLevel, pLivingEntity, new ItemStack(toothpaste));
         }
@@ -145,38 +142,6 @@ public class AbstractToothbrush extends Item {
         posVec3 = posVec3.add(entity.getX(), entity.getEyeY(), entity.getZ());
 
         level.addParticle(new ToothpasteParticleOption(stack), posVec3.x, posVec3.y, posVec3.z, speedVec3.x, speedVec3.y + 0.05, speedVec3.z);
-    }
-
-    /**
-     * 从 NBT 获取牙膏
-     * @param itemStack 牙刷 ItemStack
-     * @return 牙膏
-     */
-    public static Item getToothpaste(ItemStack itemStack) {
-        if (!itemStack.getOrCreateTag().contains(NBT_NAME)) {
-            return null;
-        }
-
-        String toothpasteName = itemStack.getOrCreateTag().getString(NBT_NAME);
-        if (toothpasteName.isEmpty()) {
-            return null;
-        }
-
-        return BuiltInRegistries.ITEM.get(new ResourceLocation(toothpasteName));
-    }
-
-    /**
-     * 将牙膏添加到 NBT 中
-     * @param itemStack 牙刷 ItemStack
-     * @param toothpaste 牙膏
-     */
-    public static void setToothpaste(ItemStack itemStack, Item toothpaste) {
-        CompoundTag tag = itemStack.getOrCreateTag();
-        if (toothpaste == null) {
-            tag.putString(NBT_NAME, "");
-        } else {
-            tag.putString(NBT_NAME, BuiltInRegistries.ITEM.getKey(toothpaste).toString());
-        }
     }
 
     @Override
@@ -200,7 +165,7 @@ public class AbstractToothbrush extends Item {
                 ItemStack toothpaste = player.getMainHandItem() == itemInHand ? player.getOffhandItem() : player.getMainHandItem();
 
                 if (player.isUsingItem() && player.getUseItemRemainingTicks() > 0) {
-                    if (getToothpaste(itemInHand) instanceof AbstractToothpaste) {
+                    if (NbtUtil.getToothpaste(itemInHand) instanceof AbstractToothpaste) {
                         this.brushingArmTransform(poseStack, arm, player.getUseItemRemainingTicks(), itemInHand.getUseDuration(), partialTick);
                     } else if (toothpaste.getItem() instanceof AbstractToothpaste) {
                         this.applyToothpasteArmTransform(poseStack, arm, player.getUseItemRemainingTicks(), itemInHand.getUseDuration(), partialTick);

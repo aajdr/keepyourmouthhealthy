@@ -25,8 +25,6 @@ public class KeepYourMouthHealthy {
         ModTriggers.register(modEventBus);
         ModParticleType.register(modEventBus);
 
-        modEventBus.register(ModParticleType.class);
-
         NeoForge.EVENT_BUS.register(EntityEatListener.class);
         NeoForge.EVENT_BUS.register(ItemRenderListener.class);
 

@@ -2,10 +2,7 @@ package xyz.starchenpy.keepyourmouthhealthy.common.particle;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.ParticleRenderType;
-import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.client.particle.*;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
@@ -15,9 +12,11 @@ import net.neoforged.neoforge.client.model.data.ModelData;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
+@OnlyIn(Dist.CLIENT)
 public class ToothpasteParticle extends TextureSheetParticle {
     private final float uo;
     private final float vo;
+    private final boolean turnOver;
 
     ToothpasteParticle(ClientLevel level, double x, double y, double z, double x1, double y1, double z1, ItemStack itemStack) {
         this(level, x, y, z, itemStack);
@@ -44,28 +43,29 @@ public class ToothpasteParticle extends TextureSheetParticle {
         }
         this.gravity = 1.0F;
         this.quadSize /= 2.0F;
-        this.uo = this.random.nextFloat() * 3.0F;
-        this.vo = this.random.nextFloat() * 3.0F;
+        this.uo = this.random.nextFloat() / 10;
+        this.vo = this.random.nextFloat() / 10;
+        this.turnOver = this.random.nextBoolean();
     }
 
     @Override
     protected float getU0() {
-        return this.sprite.getU((this.uo + 1.0F) / 4.0F);
+        return this.turnOver ? this.sprite.getU(0.8f + uo) : this.sprite.getU(1);
     }
 
     @Override
     protected float getU1() {
-        return this.sprite.getU(this.uo / 4.0F);
+        return this.turnOver ? this.sprite.getU(1) : this.sprite.getU(0.8f + uo);
     }
 
     @Override
     protected float getV0() {
-        return this.sprite.getV(this.vo / 4.0F);
+        return this.turnOver ? this.sprite.getV(0) : this.sprite.getV(0.3f + vo);
     }
 
     @Override
     protected float getV1() {
-        return this.sprite.getV((this.vo + 1.0F) / 4.0F);
+        return this.turnOver ? this.sprite.getV(0.3f + vo) : this.sprite.getV(0);
     }
 
     @OnlyIn(Dist.CLIENT)

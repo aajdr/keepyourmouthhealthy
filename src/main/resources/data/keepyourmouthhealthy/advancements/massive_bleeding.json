@@ -17,7 +17,7 @@
       "conditions": {
         "player": {
           "effects": {
-            "keepyourmouthhealthy:oral_injury": {
+            "keepyourmouthhealthy:injury_oral": {
               "amplifier": {
                 "min": 2
               }
