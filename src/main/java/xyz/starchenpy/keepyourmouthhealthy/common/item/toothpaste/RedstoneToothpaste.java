@@ -7,7 +7,7 @@ import xyz.starchenpy.keepyourmouthhealthy.common.effect.ModEffects;
 
 public class RedstoneToothpaste extends AbstractToothpaste {
     public RedstoneToothpaste(Properties item) {
-        super(item, 3);
+        super(item, 3, 0xFF0000);
     }
 
     @Override

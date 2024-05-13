@@ -7,7 +7,7 @@ import xyz.starchenpy.keepyourmouthhealthy.common.effect.ModEffects;
 
 public class FlintToothpaste extends AbstractToothpaste {
     public FlintToothpaste(Properties item) {
-        super(item, 4);
+        super(item, 4, 0x0D0D10);
     }
 
     @Override

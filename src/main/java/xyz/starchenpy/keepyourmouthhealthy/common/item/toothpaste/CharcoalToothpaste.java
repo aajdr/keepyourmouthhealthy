@@ -6,7 +6,7 @@ import xyz.starchenpy.keepyourmouthhealthy.common.effect.ModEffects;
 
 public class CharcoalToothpaste extends AbstractToothpaste {
     public CharcoalToothpaste(Properties item) {
-        super(item, 2);
+        super(item, 2, 0x2E2E30);
     }
 
     @Override

@@ -7,7 +7,7 @@ import xyz.starchenpy.keepyourmouthhealthy.common.effect.ModEffects;
 
 public class GoldenAppleToothpaste extends AbstractToothpaste {
     public GoldenAppleToothpaste(Properties item) {
-        super(item, 4);
+        super(item, 4, 0xEAEE57);
     }
 
     @Override

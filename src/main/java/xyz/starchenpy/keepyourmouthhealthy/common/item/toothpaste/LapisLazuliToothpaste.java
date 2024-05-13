@@ -7,7 +7,7 @@ import xyz.starchenpy.keepyourmouthhealthy.common.effect.ModEffects;
 
 public class LapisLazuliToothpaste extends AbstractToothpaste {
     public LapisLazuliToothpaste(Properties item) {
-        super(item, 3);
+        super(item, 3, 0x0059FF);
     }
 
     @Override

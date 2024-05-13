@@ -2,5 +2,13 @@
   "parent": "keepyourmouthhealthy:item/toothbrush",
   "textures": {
     "layer0": "keepyourmouthhealthy:item/redstone_toothbrush"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "keepyourmouthhealthy:has_toothpaste": 1
+      },
+      "model": "keepyourmouthhealthy:item/redstone_toothbrush_overlay"
+    }
+  ]
 }

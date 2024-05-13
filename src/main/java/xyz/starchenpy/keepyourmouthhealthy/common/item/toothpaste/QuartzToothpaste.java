@@ -6,7 +6,7 @@ import xyz.starchenpy.keepyourmouthhealthy.common.effect.ModEffects;
 
 public class QuartzToothpaste extends AbstractToothpaste {
     public QuartzToothpaste(Properties item) {
-        super(item, 4);
+        super(item, 4, 0xE9E9E4);
     }
 
     @Override

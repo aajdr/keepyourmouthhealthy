@@ -13,9 +13,9 @@
     }
   },
   "pattern": [
-    " bt",
-    " s ",
-    "s  "
+    "bt",
+    " s",
+    "s "
   ],
   "result": {
     "item": "keepyourmouthhealthy:wooden_toothbrush"
