@@ -61,8 +61,6 @@ public class ItemRenderListener {
 
     /**
      * 挤牙膏的动作
-     * @param poseStack 物品
-     * @param hand 手
      */
     private static void applyToothpasteTransform(PoseStack poseStack, InteractionHand hand, int remainingDuration, int useDuration, float partialTick) {
         int i = hand == InteractionHand.MAIN_HAND ? 1 : -1;

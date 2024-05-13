@@ -34,6 +34,9 @@ public class ToothpasteParticle extends TextureSheetParticle {
         return ParticleRenderType.TERRAIN_SHEET;
     }
 
+    /**
+     * 刷牙时的牙膏颗粒
+     */
     protected ToothpasteParticle(ClientLevel level, double x, double y, double z, ItemStack itemStack) {
         super(level, x, y, z, 0.0, 0.0, 0.0);
         var model = Minecraft.getInstance().getItemRenderer().getModel(itemStack, level, null, 0);
