@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "T": {
+      "item": "keepyourmouthhealthy:toothpaste_tube"
+    },
+    "F": {
+      "item": "minecraft:flint"
+    }
+  },
+  "pattern": [
+    " F ",
+    "FTF",
+    " F "
+  ],
+  "result": {
+    "item": "keepyourmouthhealthy:flint_toothpaste"
+  }
+}

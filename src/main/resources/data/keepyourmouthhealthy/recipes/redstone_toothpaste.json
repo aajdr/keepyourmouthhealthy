@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "T": {
+      "item": "keepyourmouthhealthy:toothpaste_tube"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    " R ",
+    "RTR",
+    " R "
+  ],
+  "result": {
+    "item": "keepyourmouthhealthy:redstone_toothpaste"
+  }
+}

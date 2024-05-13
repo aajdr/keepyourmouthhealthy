@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "item": "minecraft:paper"
+    },
+    "I": {
+      "item": "minecraft:iron_nugget"
+    }
+  },
+  "pattern": [
+    " PI",
+    "P P",
+    "IP "
+  ],
+  "result": {
+    "item": "keepyourmouthhealthy:toothpaste_tube",
+    "count": 2
+  }
+}

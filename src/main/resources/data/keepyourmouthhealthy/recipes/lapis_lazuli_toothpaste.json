@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "T": {
+      "item": "keepyourmouthhealthy:toothpaste_tube"
+    },
+    "L": {
+      "item": "minecraft:lapis_lazuli"
+    }
+  },
+  "pattern": [
+    " L ",
+    "LTL",
+    " L "
+  ],
+  "result": {
+    "item": "keepyourmouthhealthy:lapis_lazuli_toothpaste"
+  }
+}

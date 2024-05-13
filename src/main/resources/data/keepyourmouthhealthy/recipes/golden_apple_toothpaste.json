@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "T": {
+      "item": "keepyourmouthhealthy:toothpaste_tube"
+    },
+    "A": {
+      "item": "minecraft:golden_apple"
+    },
+    "G": {
+      "item": "minecraft:gold_nugget"
+    }
+  },
+  "pattern": [
+    " A ",
+    "GTG",
+    " G "
+  ],
+  "result": {
+    "item": "keepyourmouthhealthy:golden_apple_toothpaste"
+  }
+}

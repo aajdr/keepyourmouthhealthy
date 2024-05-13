@@ -31,6 +31,7 @@ public class ModItems {
     // 材料
     public static final DeferredItem<Item> BRISTLE = ITEMS.registerSimpleItem("bristle");
     public static final DeferredItem<Item> TOOTHBRUSH_HEAD = ITEMS.registerSimpleItem("toothbrush_head");
+    public static final DeferredItem<Item> TOOTHPASTE_TUBE = ITEMS.registerSimpleItem("toothpaste_tube");
 
     public static void register(IEventBus modEventBus) {
         ITEMS.register(modEventBus);

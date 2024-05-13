@@ -2,19 +2,19 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "q": {
+    "Q": {
       "item": "minecraft:quartz"
     },
-    "b": {
+    "B": {
       "item": "keepyourmouthhealthy:bristle"
     },
-    "l": {
+    "L": {
       "item": "minecraft:string"
     }
   },
   "pattern": [
-    "bbb",
-    "lql"
+    "BBB",
+    "LQL"
   ],
   "result": {
     "item": "keepyourmouthhealthy:toothbrush_head",
