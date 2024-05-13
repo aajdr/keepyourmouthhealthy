@@ -1,0 +1,36 @@
+{
+  "itemGroup.keepyourmouthhealthy.tab": "口腔衛生の維持",
+
+  "tooltip.keepyourmouthhealthy.redstone_toothbrush": "§7これがレッドストーン・テクノロジーだ",
+
+  "item.keepyourmouthhealthy.wooden_toothbrush": "木製歯ブラシ",
+  "item.keepyourmouthhealthy.redstone_toothbrush": "レッドストーン・パワー歯ブラシ",
+
+  "item.keepyourmouthhealthy.charcoal_toothpaste": "炭の歯磨き粉",
+  "item.keepyourmouthhealthy.flint_toothpaste": "フリントの歯磨き粉",
+  "item.keepyourmouthhealthy.quartz_toothpaste": "ネザークォーツ歯磨き粉",
+  "item.keepyourmouthhealthy.redstone_toothpaste": "レッドストーン歯磨き粉",
+  "item.keepyourmouthhealthy.lapis_lazuli_toothpaste": "ラピスラズリ歯磨き粉",
+  "item.keepyourmouthhealthy.golden_apple_toothpaste": "金のリンゴ歯磨き粉",
+
+  "item.keepyourmouthhealthy.bristle": "猪のたてがみ",
+  "item.keepyourmouthhealthy.toothbrush_head": "歯ブラシのヘッド",
+
+  "effect.keepyourmouthhealthy.tooth_decay": "虫歯",
+  "effect.keepyourmouthhealthy.injury_oral": "口腔内の損傷",
+  "effect.keepyourmouthhealthy.clean_oral": "クリーンマウス",
+
+  "death.attack.oral_bleeding": "%1$s は食事中に動脈をやられた",
+
+  "advancements.keepyourmouthhealthy.root": "虫歯",
+  "advancements.keepyourmouthhealthy.root.desc": "ああ、虫歯だ！ お口が好きになる時です！",
+
+  "advancements.keepyourmouthhealthy.massive_bleeding": "出血",
+  "advancements.keepyourmouthhealthy.massive_bleeding.desc": "少なくともグレード3の口腔損傷では、食事をするのも痛い！",
+
+  "advancements.keepyourmouthhealthy.teeth_whitening": "歯のホワイトニング",
+  "advancements.keepyourmouthhealthy.teeth_whitening.desc": "初めての歯磨き",
+
+  "advancements.keepyourmouthhealthy.do_not_open_your_mouth": "今は口を開くな",
+  "advancements.keepyourmouthhealthy.do_not_open_your_mouth.desc": "最低4段階の虫歯を獲得すること"
+}

@@ -1,0 +1,36 @@
+{
+  "itemGroup.keepyourmouthhealthy.tab": "保持口腔健康",
+
+  "tooltip.keepyourmouthhealthy.redstone_toothbrush": "§7這！就！是！紅石科技！",
+
+  "item.keepyourmouthhealthy.wooden_toothbrush": "木牙刷",
+  "item.keepyourmouthhealthy.redstone_toothbrush": "紅石動力牙刷",
+
+  "item.keepyourmouthhealthy.charcoal_toothpaste": "木炭牙膏",
+  "item.keepyourmouthhealthy.flint_toothpaste": "燧石牙膏",
+  "item.keepyourmouthhealthy.quartz_toothpaste": "石英牙膏",
+  "item.keepyourmouthhealthy.redstone_toothpaste": "紅石牙膏",
+  "item.keepyourmouthhealthy.lapis_lazuli_toothpaste": "青金石牙膏",
+  "item.keepyourmouthhealthy.golden_apple_toothpaste": "金蘋果牙膏",
+
+  "item.keepyourmouthhealthy.bristle": "豬鬃",
+  "item.keepyourmouthhealthy.toothbrush_head": "牙刷頭",
+
+  "effect.keepyourmouthhealthy.tooth_decay": "蛀牙",
+  "effect.keepyourmouthhealthy.injury_oral": "口腔受損",
+  "effect.keepyourmouthhealthy.clean_oral": "潔淨口腔",
+
+  "death.attack.oral_bleeding": "%1$s 在吃東西的時候被紮爆了動脈",
+
+  "advancements.keepyourmouthhealthy.root": "蛀牙",
+  "advancements.keepyourmouthhealthy.root.desc": "哦，是蛀牙！是時候愛護下你的嘴了！",
+
+  "advancements.keepyourmouthhealthy.massive_bleeding": "大出血",
+  "advancements.keepyourmouthhealthy.massive_bleeding.desc": "在至少3級的口腔損傷下吃東西，真疼！",
+
+  "advancements.keepyourmouthhealthy.teeth_whitening": "牙齒美白",
+  "advancements.keepyourmouthhealthy.teeth_whitening.desc": "第一次刷牙",
+
+  "advancements.keepyourmouthhealthy.do_not_open_your_mouth": "現在不要張嘴",
+  "advancements.keepyourmouthhealthy.do_not_open_your_mouth.desc": "獲得至少4級的蛀牙"
+}
