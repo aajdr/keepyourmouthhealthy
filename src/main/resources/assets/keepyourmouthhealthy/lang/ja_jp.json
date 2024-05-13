@@ -33,5 +33,8 @@
   "advancements.keepyourmouthhealthy.teeth_whitening.desc": "初めての歯磨き",
 
   "advancements.keepyourmouthhealthy.do_not_open_your_mouth": "今は口を開くな",
-  "advancements.keepyourmouthhealthy.do_not_open_your_mouth.desc": "最低4段階の虫歯を獲得すること"
+  "advancements.keepyourmouthhealthy.do_not_open_your_mouth.desc": "最低4段階の虫歯を獲得すること",
+
+  "advancements.keepyourmouthhealthy.redstone_oscillation": "レッドストーンしんどう",
+  "advancements.keepyourmouthhealthy.redstone_oscillation.desc": "どうやって振動したの?!"
 }
