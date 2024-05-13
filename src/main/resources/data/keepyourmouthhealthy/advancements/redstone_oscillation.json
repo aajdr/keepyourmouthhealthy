@@ -1,0 +1,24 @@
+{
+  "parent": "keepyourmouthhealthy:teeth_whitening",
+  "display": {
+    "title": {
+      "translate": "advancements.keepyourmouthhealthy.redstone_oscillation"
+    },
+    "description": {
+      "translate": "advancements.keepyourmouthhealthy.redstone_oscillation.desc"
+    },
+    "icon": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "criteria": {
+    "teeth_whitening": {
+      "trigger": "keepyourmouthhealthy:after_brushing_teeth",
+      "conditions": {
+        "item": {
+          "items": ["keepyourmouthhealthy:redstone_toothbrush"]
+        }
+      }
+    }
+  }
+}
