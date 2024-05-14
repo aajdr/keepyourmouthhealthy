@@ -8,7 +8,7 @@
       "translate": "advancements.keepyourmouthhealthy.do_not_open_your_mouth.desc"
     },
     "icon": {
-      "item": "keepyourmouthhealthy:wooden_toothbrush"
+      "item": "minecraft:wither_rose"
     }
   },
   "criteria": {
