@@ -1,0 +1,12 @@
+{
+  "brushing_teeth_sound": {
+    "category": "voice",
+    "subtitle": "sounds.keepyourmouthhealthy.brushing_teeth_sound",
+    "sounds": [
+      {
+        "name": "keepyourmouthhealthy:brushing_teeth_sound",
+        "stream": true
+      }
+    ]
+  }
+}

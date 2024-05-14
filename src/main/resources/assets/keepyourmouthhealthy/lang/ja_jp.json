@@ -36,5 +36,7 @@
   "advancements.keepyourmouthhealthy.do_not_open_your_mouth.desc": "最低4段階の虫歯を獲得すること",
 
   "advancements.keepyourmouthhealthy.redstone_oscillation": "レッドストーンしんどう",
-  "advancements.keepyourmouthhealthy.redstone_oscillation.desc": "どうやって振動したの?!"
+  "advancements.keepyourmouthhealthy.redstone_oscillation.desc": "どうやって振動したの?!",
+
+  "sounds.keepyourmouthhealthy.brushing_teeth_sound": "歯を磨く"
 }

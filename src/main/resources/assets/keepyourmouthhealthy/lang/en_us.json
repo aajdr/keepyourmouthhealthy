@@ -36,5 +36,7 @@
   "advancements.keepyourmouthhealthy.do_not_open_your_mouth.desc": "Obtain at least level 4 tooth decay",
 
   "advancements.keepyourmouthhealthy.redstone_oscillation": "Redstone Oscillation",
-  "advancements.keepyourmouthhealthy.redstone_oscillation.desc": "How did it vibrate?!"
+  "advancements.keepyourmouthhealthy.redstone_oscillation.desc": "How did it vibrate?!",
+
+  "sounds.keepyourmouthhealthy.brushing_teeth_sound": "Brushing Teeth"
 }

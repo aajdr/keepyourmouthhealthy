@@ -15,6 +15,7 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import xyz.starchenpy.keepyourmouthhealthy.common.ModSounds;
 import xyz.starchenpy.keepyourmouthhealthy.common.advancements.ModTriggers;
 import xyz.starchenpy.keepyourmouthhealthy.common.item.toothpaste.AbstractToothpaste;
 import xyz.starchenpy.keepyourmouthhealthy.common.particle.ToothpasteParticleOption;
@@ -111,37 +112,45 @@ public class AbstractToothbrush extends Item {
 
     @Override
     @ParametersAreNonnullByDefault
-    public void onUseTick(Level pLevel, LivingEntity pLivingEntity, ItemStack pStack, int pRemainingUseDuration) {
-        if (!pLevel.isClientSide) {
+    public void onUseTick(Level level, LivingEntity livingEntity, ItemStack stack, int remainingUseDuration) {
+        if (!level.isClientSide) {
             return;
         }
 
-        float progress = 1 - ((float) pRemainingUseDuration / this.getUseDuration(pStack));
-        if (progress < 0.1) {
+        if (!(NbtUtil.getToothpaste(stack) instanceof AbstractToothpaste)) {
             return;
         }
 
-        Item toothpaste = NbtUtil.getToothpaste(pStack);
-        if (toothpaste instanceof AbstractToothpaste) {
-            spawnToothpasteParticles(pLevel, pLivingEntity, new ItemStack(toothpaste));
+        // 生成粒子效果与音效
+        if (shouldTriggerItemUseEffects(livingEntity, stack)) {
+            this.spawnItemParticles(level, livingEntity, NbtUtil.getToothpaste(stack));
+            livingEntity.playSound(ModSounds.BRUSHING_TEETH_SOUND.get(),
+                    0.5F + 0.5F * (float)level.random.nextInt(2),
+                    (level.random.nextFloat() - level.random.nextFloat()) * 0.2F + 1.0F);
         }
     }
 
-    /**
-     * 使用时的粒子效果
-     */
-    private void spawnToothpasteParticles(Level level, LivingEntity entity, ItemStack stack) {
-        Vec3 speedVec3 = new Vec3(((double)level.random.nextFloat() - 0.5) * 0.1, Math.random() * 0.1 + 0.1, 0.0);
-        speedVec3 = speedVec3.xRot(-entity.getXRot() * (float) (Math.PI / 180.0));
-        speedVec3 = speedVec3.yRot(-entity.getYRot() * (float) (Math.PI / 180.0));
+    private boolean shouldTriggerItemUseEffects(LivingEntity entity, ItemStack stack) {
+        int i = entity.getUseItemRemainingTicks();
+        boolean flag = i <= this.getUseDuration(stack) - (this.getUseDuration(stack) / 10);
+        return flag && i % 4 == 0;
+    }
 
-        double d0 = (double)(-level.random.nextFloat()) * 0.6 - 0.3;
-        Vec3 posVec3 = new Vec3(((double)level.random.nextFloat() - 0.5) * 0.3, d0, 0.6);
-        posVec3 = posVec3.xRot(-entity.getXRot() * (float) (Math.PI / 180.0));
-        posVec3 = posVec3.yRot(-entity.getYRot() * (float) (Math.PI / 180.0));
-        posVec3 = posVec3.add(entity.getX(), entity.getEyeY(), entity.getZ());
+    private void spawnItemParticles(Level level, LivingEntity entity, Item item) {
+        for (int i = 0; i < 3; i++) {
+            Vec3 speedVec3 = new Vec3(((double)level.random.nextFloat() - 0.5) * 0.1, Math.random() * 0.1 + 0.1, 0.0);
+            speedVec3 = speedVec3.xRot(-entity.getXRot() * (float) (Math.PI / 180.0));
+            speedVec3 = speedVec3.yRot(-entity.getYRot() * (float) (Math.PI / 180.0));
 
-        level.addParticle(new ToothpasteParticleOption(stack), posVec3.x, posVec3.y, posVec3.z, speedVec3.x, speedVec3.y + 0.05, speedVec3.z);
+            double d0 = (double)(-level.random.nextFloat()) * 0.6 - 0.3;
+            Vec3 posVec3 = new Vec3(((double)level.random.nextFloat() - 0.5) * 0.3, d0, 0.6);
+            posVec3 = posVec3.xRot(-entity.getXRot() * (float) (Math.PI / 180.0));
+            posVec3 = posVec3.yRot(-entity.getYRot() * (float) (Math.PI / 180.0));
+            posVec3 = posVec3.add(entity.getX(), entity.getEyeY(), entity.getZ());
+
+            ItemStack stack = new ItemStack(item);
+            level.addParticle(new ToothpasteParticleOption(stack), posVec3.x, posVec3.y, posVec3.z, speedVec3.x, speedVec3.y + 0.05, speedVec3.z);
+        }
     }
 
     @Override
@@ -204,7 +213,7 @@ public class AbstractToothbrush extends Item {
                 // 使用进度
                 float progress = 1 - ((remainingDuration - partialTick) / useDuration);
                 // 摆动幅度
-                double amplitude = i * Math.sin(progress * 100) / 6;
+                double amplitude = i * Math.sin(remainingDuration - partialTick) / 4;
 
                 float nonlinear = MathUtil.easeOutQuint(progress, 50);
                 poseStack.mulPose(Axis.ZP.rotationDegrees(i * nonlinear * 90));
@@ -216,7 +225,7 @@ public class AbstractToothbrush extends Item {
                 } else if (progress <= 0.4) {
                     poseStack.translate(0, 0, amplitude);
                 } else if (progress <= 0.7) {
-                    poseStack.translate(amplitude / 2, 0, 0);
+                    poseStack.translate(amplitude / 3, 0, 0);
                 } else {
                     poseStack.translate(0, 0, amplitude);
                 }
